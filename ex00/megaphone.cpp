@@ -6,13 +6,11 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 11:17:10 by meskelin          #+#    #+#             */
-/*   Updated: 2023/08/26 12:13:58 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/08/26 12:16:23 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-
-
 
 static void	print_upper(int argc, char **argv)
 {
