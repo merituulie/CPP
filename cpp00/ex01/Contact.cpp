@@ -19,11 +19,6 @@ Contact::Contact()
 
 Contact::~Contact()
 {
-	this->_firstName = "";
-	this->_lastName = "";
-	this->_nickName = "";
-	this->_phoneNumber = "";
-	this->_darkestSecret = "";
 	this->_index = -1;
 }
 
@@ -103,4 +98,29 @@ void Contact::view(void) const
 int Contact::get_index(void) const
 {
 	return this->_index;
+}
+
+std::string Contact::get_firstname(void) const
+{
+	return this->_firstName;
+}
+
+std::string Contact::get_lastname(void) const
+{
+	return this->_lastName;
+}
+
+std::string Contact::get_nickname(void) const
+{
+	return this->_nickName;
+}
+
+std::string Contact::get_phonenumber(void) const
+{
+	return this->_phoneNumber;
+}
+
+std::string Contact::get_darkest_secret(void) const
+{
+	return this->_darkestSecret;
 }

@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 13:45:38 by meskelin          #+#    #+#             */
-/*   Updated: 2023/08/28 15:52:37 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/08/29 16:12:21 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ class PhoneBook {
 	public:
 		PhoneBook();
 		~PhoneBook();
+
 		void	add_contact(void);
 		void	search_contact(void) const;
 		int		display_contacts(void) const;
