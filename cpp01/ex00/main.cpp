@@ -6,21 +6,21 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 22:53:22 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/05 15:10:23 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:33:49 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 
-int main(void)
+int	main(void)
 {
-    std::cout << "Creating a zombie on the heap." << std::endl;
-    Zombie *cran = newZombie("Cranberry");
-    cran->announce();
-    delete cran;
+	std::cout << "Creating a zombie on the heap." << std::endl;
+	Zombie *cran = newZombie("Cranberry");
+	cran->announce();
+	delete cran;
 
-    std::cout << "Creating a zombie on the stack." << std::endl;
-    randomChump("Randomberry");
+	std::cout << "Creating a zombie on the stack." << std::endl;
+	randomChump("Randomberry");
 
-    return 0;
+	return 0;
 }
