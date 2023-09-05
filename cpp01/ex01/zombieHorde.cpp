@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   zombieHorde.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/04 22:53:22 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/05 15:10:23 by meskelin         ###   ########.fr       */
+/*   Created: 2023/09/05 15:13:28 by meskelin          #+#    #+#             */
+/*   Updated: 2023/09/05 16:25:37 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 
-int main(void)
+Zombie* zombieHorde(int N, std::string name)
 {
-    std::cout << "Creating a zombie on the heap." << std::endl;
-    Zombie *cran = newZombie("Cranberry");
-    cran->announce();
-    delete cran;
+	if (N < 1)
+	{
+		std::cout << "Can't create less than 1 zombie for the horde." << std::endl;
+		return NULL;
+	}
 
-    std::cout << "Creating a zombie on the stack." << std::endl;
-    randomChump("Randomberry");
+	int i = 0;
+	Zombie	*zombies = new Zombie[N];
+	while (i < N)
+		zombies[i++].set_name(name);
 
-    return 0;
+	return zombies;
 }

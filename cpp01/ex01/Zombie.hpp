@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Zombie.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/04 22:53:22 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/05 15:10:23 by meskelin         ###   ########.fr       */
+/*   Created: 2023/09/04 22:30:06 by meskelin          #+#    #+#             */
+/*   Updated: 2023/09/05 16:06:24 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#ifndef ZOMBIE_H
+# define ZOMBIE_H
 
-int main(void)
-{
-    std::cout << "Creating a zombie on the heap." << std::endl;
-    Zombie *cran = newZombie("Cranberry");
-    cran->announce();
-    delete cran;
+#include <iostream>
+#include <iomanip>
 
-    std::cout << "Creating a zombie on the stack." << std::endl;
-    randomChump("Randomberry");
+class Zombie {
+	private:
+		std::string _name;
 
-    return 0;
-}
+	public:
+		Zombie();
+		~Zombie();
+
+		void	set_name(std::string name);
+		void	announce(void);
+};
+
+Zombie* zombieHorde(int N, std::string name);
+
+#endif
