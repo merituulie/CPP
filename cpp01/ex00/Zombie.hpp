@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 22:30:06 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/04 22:56:09 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/09/05 13:18:21 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ class Zombie {
 		~Zombie();
 
 		void	announce(void);
-}
+};
 
-Zombie* newZombie(std::string name);
-void    randomChump(std::string name);
+Zombie*	newZombie(std::string name);
+void	randomChump(std::string name);
 
 #endif

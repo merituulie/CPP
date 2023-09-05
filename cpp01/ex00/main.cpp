@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 22:53:22 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/04 22:58:15 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/09/05 13:16:32 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 
 int main(void)
 {
-    std::cout << "Creating zombie on the heap." << std::endl;
+    std::cout << "Creating a zombie on the heap." << std::endl;
     Zombie *cran = newZombie("Cranberry");
     cran->announce();
     delete cran;
 
-    std::cout << "Creating zombie on the stack." << std::endl;
+    std::cout << "Creating a zombie on the stack." << std::endl;
     randomChump("Randomberry");
 
     return 0;

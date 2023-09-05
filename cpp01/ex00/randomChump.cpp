@@ -6,13 +6,13 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 22:50:59 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/04 22:55:54 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/09/05 13:15:21 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 
-void    randomChump(std::string name)
+void	randomChump(std::string name)
 {
 	if (name.empty())
 	{
@@ -20,6 +20,6 @@ void    randomChump(std::string name)
 		return;
 	}
 
-    Zombie zombi(name);
-    zombi.announce();
+	Zombie zombi(name);
+	zombi.announce();
 }

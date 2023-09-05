@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 22:35:43 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/04 22:41:52 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/09/05 13:16:06 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ Zombie::Zombie(std::string name) : _name(name)
 
 Zombie::~Zombie()
 {
-	std::cout << this->_name << "is destroyed." << std::endl;
+	std::cout << this->_name << " is destroyed." << std::endl;
 }
 
 void Zombie::announce(void)

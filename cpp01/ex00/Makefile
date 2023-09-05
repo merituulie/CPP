@@ -6,11 +6,11 @@
 #    By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/26 11:12:25 by meskelin          #+#    #+#              #
-#    Updated: 2023/09/04 22:36:58 by meskelin         ###   ########.fr        #
+#    Updated: 2023/09/05 13:45:15 by meskelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = zombies
+NAME = ZombieApocalypse
 
 BUILD_FLAGS = -Wall -Wextra -std=c++98 -Werror
 
@@ -18,8 +18,10 @@ SRC =	Zombie \
 		newZombie \
 		randomChump
 
+H = Zombie
+
 SRC_SUFF = $(addsuffix .cpp, $(SRC))
-HEADER_SUFF = $(addsuffix .hpp, $(SRC))
+HEADER_SUFF = $(addsuffix .hpp, $(H))
 
 SRCSO = $(addsuffix .o, $(SRC))
 
@@ -27,7 +29,7 @@ SRCSO = $(addsuffix .o, $(SRC))
 all: $(NAME)
 
 $(NAME): main.cpp $(SRC_SUFF) $(HEADER_SUFF)
-	c++ $(BUILD_FLAGS) $(SRC_SUFF) main.cpp -o $(NAME)
+	c++ $(BUILD_FLAGS) $(SRC_SUFF) main.cpp -o $(NAME) -I $(HEADER_SUFF)
 
 clean:
 	rm -f $(SRCSO)
