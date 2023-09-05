@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 22:53:22 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/05 16:29:53 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:42:17 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,46 +19,32 @@ static void	announce_zombies(Zombie *zombs, int n)
 		zombs[i++].announce();
 }
 
-int	main(void)
+static void	test_create_horde(int tst, int zmbs, std::string name)
 {
 	Zombie *zombs;
 
-	std::cout << "-------- TEST 1 --------" << std::endl;
-	std::cout << "Creating -1 zombies..." << std::endl;
-	zombs = zombieHorde(-1, "Negative");
-	std::cout << "Deleting zombies..." << std::endl;
-	std::cout << "------------------------" << std::endl;
+	std::cout << "-------- TEST " << tst << " --------" << std::endl;
+	std::cout << "Creating " << zmbs << " zombies..." << std::endl;
 
-	std::cout << "-------- TEST 2 --------" << std::endl;
-	std::cout << "Creating 0 zombies..." << std::endl;
-	zombs = zombieHorde(0, "None");
-	std::cout << "Deleting zombies..." << std::endl;
-	delete[] zombs;
-	std::cout << "------------------------" << std::endl;
+	zombs = zombieHorde(zmbs, name);
 
-	std::cout << "-------- TEST 3 --------" << std::endl;
-	std::cout << "Creating 3 zombies..." << std::endl;
-	zombs = zombieHorde(3, "Jack");
-	announce_zombies(zombs, 3);
-	std::cout << "Deleting zombies..." << std::endl;
-	delete[] zombs;
-	std::cout << "------------------------" << std::endl;
+	if (zmbs > 0)
+	{
+		announce_zombies(zombs, zmbs - 1);
+		std::cout << "Deleting zombies..." << std::endl;
+		delete[] zombs;
+	}
 
-	std::cout << "-------- TEST 4 --------" << std::endl;
-	std::cout << "Creating 10 zombies..." << std::endl;
-	zombs = zombieHorde(10, "Jane");
-	announce_zombies(zombs, 9);
-	std::cout << "Deleting zombies..." << std::endl;
-	delete[] zombs;
 	std::cout << "------------------------" << std::endl;
+}
 
-	std::cout << "-------- TEST 5 --------" << std::endl;
-	std::cout << "Creating 100 zombies..." << std::endl;
-	zombs = zombieHorde(100, "Jane");
-	announce_zombies(zombs, 100);
-	std::cout << "Deleting zombies..." << std::endl;
-	delete[] zombs;
-	std::cout << "------------------------" << std::endl;
+int	main(void)
+{
+	int i = 1;
+	test_create_horde(i++, -1, "Negative");
+	test_create_horde(i++, 0, "None");
+	test_create_horde(i++, 10, "Jane");
+	test_create_horde(i++, 100, "Jane");
 
 	return 0;
 }
