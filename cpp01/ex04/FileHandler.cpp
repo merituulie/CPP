@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 21:40:20 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/06 22:05:48 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/09/06 22:12:21 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void FileHandler::replace_occurences(std::string to_replace, std::string replace
 	{
 		std::ofstream	outstream(this->_outfile);
 		size_t			index = file_content.find(to_replace);
-		while (index != -1)
+		while (index != std::string::npos)
 		{
 			file_content.erase(index, to_replace.length());
 			file_content.insert(index, replace_with);
