@@ -1,31 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FileHandler.hpp                                    :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/06 21:37:35 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/06 21:40:10 by meskelin         ###   ########.fr       */
+/*   Created: 2023/09/06 21:32:00 by meskelin          #+#    #+#             */
+/*   Updated: 2023/09/11 19:02:29 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILEHANDLER_H
-# define FILEHANDLER_H
-
-#include <iostream>
-#include <fstream>
-
-class FileHandler {
-	private:
-		std::string _infile;
-		std::string _outfile;
-
-	public:
-		FileHandler(std::string infile);
-		~FileHandler();
-
-		void	replace_occurences(std::string to_replace, std::string replace_with) const;
-};
-
-#endif
+int main(int argc, char **argv)
+{
+	return (0);
+}
