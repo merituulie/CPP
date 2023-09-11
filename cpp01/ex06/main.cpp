@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 21:32:00 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/11 20:18:15 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/09/11 20:35:20 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,10 @@ int main(int argc, char **argv)
 	{
 		case 0:
 			harl.complain(levels[0]);
-			break ;
 		case 1:
 			harl.complain(levels[1]);
-			break ;
 		case 2:
 			harl.complain(levels[2]);
-			break ;
 		case 3:
 			harl.complain(levels[3]);
 			break ;
