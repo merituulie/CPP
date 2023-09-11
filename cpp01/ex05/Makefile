@@ -6,15 +6,15 @@
 #    By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/26 11:12:25 by meskelin          #+#    #+#              #
-#    Updated: 2023/09/06 22:08:40 by meskelin         ###   ########.fr        #
+#    Updated: 2023/09/11 19:55:10 by meskelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fileHandler
+NAME = complain
 
 BUILD_FLAGS = -Wall -Wextra -std=c++98 #-Werror
 
-SRC =	FileHandler
+SRC =	Harl
 
 SRC_SUFF = $(addsuffix .cpp, $(SRC))
 HEADER_SUFF = $(addsuffix .hpp, $(SRC))
