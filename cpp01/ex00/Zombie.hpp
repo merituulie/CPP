@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 22:30:06 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/05 13:18:21 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/09/12 10:15:47 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define ZOMBIE_H
 
 #include <iostream>
-#include <iomanip>
 
 class Zombie {
 	private:

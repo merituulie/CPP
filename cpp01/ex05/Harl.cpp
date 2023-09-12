@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:44:46 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/11 20:09:09 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/09/12 10:46:31 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ void Harl::complain(std::string level)
 		if (levels[i] == level)
 		{
 			(this->*complain_f[i])();
-			break ;
+			return ;
 		}
 	}
+
+	std::cerr << "Could not find the log level " << level << std::endl;
 }

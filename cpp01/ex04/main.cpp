@@ -6,35 +6,48 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 21:32:00 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/11 19:39:53 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/09/12 11:33:46 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <fstream>
+#include <string>
 
-void	replace(std::string	input, char **argv)
+void	replace(char **argv)
 {
+	std::string		input_file = (std::string)argv[1];
+
+	std::ifstream	infile;
+	infile.open(input_file);
+	if (infile.fail())
+	{
+		std::cerr << "Error when opening the file" << std::endl;
+		return ;
+	}
+
 	std::ofstream	outfile;
-	outfile.open((std::string(argv[1]) + ".replace").c_str());
+	outfile.open(input_file + ".replace");
 	if (outfile.fail())
 	{
 		std::cerr << "Error when opening the file" << std::endl;
 		return ;
 	}
 
-	int length = (int)input.length();
-	for (int i = 0; i < length; i++)
+	std::string	temp;
+	std::string	to_replace = (std::string)argv[2];
+	size_t		to_replace_l = to_replace.length();
+	while (std::getline(infile, temp))
 	{
-		int	position = input.find(argv[2], i);
-		if (position == i)
+		size_t pos = temp.find(to_replace);
+		while (pos != std::string::npos)
 		{
-			outfile << argv[3];
-			i += std::string(argv[2]).size() - 1;
+			temp.replace(pos, to_replace_l, argv[3]);
+			pos = temp.find(to_replace, pos += to_replace_l);
 		}
-		else
-			outfile << input[i];
+		outfile << temp << "\n";
 	}
+	infile.close();
 	outfile.close();
 }
 
@@ -53,21 +66,6 @@ int main(int argc, char **argv)
 		std::cerr << "The values <filename>, <word_to_replace>, <word_to_replace_with> can't be empty" << std::endl;
 		return (1);
 	}
-
-	std::ifstream	infile;
-	infile.open(argv[1]);
-	if (infile.fail())
-	{
-		std::cerr << "Error when opening the file" << std::endl;
-		return (1);
-	}
-
-	char c;
-	std::string	input;
-	while(!infile.eof() && infile >> std::noskipws >> c)
-		input += c;
-	infile.close();
-	replace(input, argv);
-
+	replace(argv);
 	return (0);
 }

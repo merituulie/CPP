@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 21:32:00 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/11 19:54:47 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/09/12 10:42:52 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ int main(void)
 	harl.complain("INFO");
 	harl.complain("WARNING");
 	harl.complain("ERROR");
+	harl.complain("boo");
 	return (0);
 }
