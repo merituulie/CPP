@@ -6,13 +6,13 @@
 #    By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/26 11:12:25 by meskelin          #+#    #+#              #
-#    Updated: 2023/09/11 19:55:10 by meskelin         ###   ########.fr        #
+#    Updated: 2023/09/12 10:41:58 by meskelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = complain
 
-BUILD_FLAGS = -Wall -Wextra -std=c++98 #-Werror
+BUILD_FLAGS = -Wall -Wextra -std=c++98 -Werror
 
 SRC =	Harl
 

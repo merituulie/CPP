@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 22:53:22 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/05 16:47:40 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/09/12 10:20:26 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void	test_create_horde(int tst, int zmbs, std::string name)
 int	main(void)
 {
 	int i = 1;
+
 	test_create_horde(i++, -1, "Negative");
 	test_create_horde(i++, 0, "None");
 	test_create_horde(i++, 10, "Jane");

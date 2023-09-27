@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 17:29:46 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/05 17:55:36 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/09/12 10:32:16 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ HumanA::~HumanA()
 void HumanA::attack() const
 {
 	if (this->_weapon.getType().empty())
-		std::cout << this->_name << " can't attack without a weapon." << std::endl;
+		std::cout << this->_name << " needs a weapon before they attack." << std::endl;
 	else
 		std::cout << this->_name << " attacks with their " << this->_weapon.getType() << std::endl;
 }

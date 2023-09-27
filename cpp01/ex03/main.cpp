@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 17:28:23 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/05 17:59:33 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/09/12 10:30:31 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,20 @@ int main()
 		bob.attack();
 	}
 	{
-		Weapon club = Weapon("crude spiked club");
+		Weapon club = Weapon("");
+		HumanA hulk("Hulk", club);
+		hulk.attack();
+		club.setType("some other type of club");
+		hulk.attack();
+	}
+	{
 		HumanB jim("Jim");
+		jim.attack();
+		Weapon club = Weapon("crude spiked club");
 		jim.setWeapon(club);
 		jim.attack();
 		club.setType("some other type of club");
 		jim.attack();
 	}
-
 	return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 17:36:14 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/05 17:56:05 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/09/12 10:32:22 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void HumanB::setWeapon(Weapon& weapon)
 
 void HumanB::attack() const
 {
-	if (this->_weapon->getType().empty())
+	if (!this->_weapon || this->_weapon->getType().empty())
 	{
-		std::cout << "You need a weapon before you attack." << std::endl;
+		std::cout << this->_name << " needs a weapon before they attack." << std::endl;
 		return;
 	}
 
