@@ -5,12 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 22:29:23 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/03 22:29:25 by meskelin         ###   ########.fr       */
+/*   Created: 2023/10/03 22:30:19 by meskelin          #+#    #+#             */
+/*   Updated: 2023/10/03 22:42:49 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include <cmath>
 
 class Fixed {
 	private:
@@ -19,6 +20,8 @@ class Fixed {
 
 	public:
 		Fixed(void);
+		Fixed(int const nrb);
+		Fixed(float const nrb);
 		Fixed(Fixed const & rhs);
 		~Fixed(void);
 
@@ -26,4 +29,29 @@ class Fixed {
 
 		int		getRawBits(void) const;
 		void	setRawBits(int const raw);
+		int		toInt( void ) const;
+		float	toFloat( void ) const;
+
+		bool	operator>(Fixed	& rhs) const;
+		bool	operator<(Fixed	& rhs) const;
+		bool	operator<=(Fixed & rhs) const;
+		bool	operator>=(Fixed & rhs) const;
+		bool	operator==(Fixed & rhs) const;
+		bool	operator!=(Fixed & rhs) const;
+
+		Fixed	operator+(Fixed & rhs) const;
+		Fixed	operator-(Fixed & rhs) const;
+		Fixed	operator*(Fixed & rhs) const;
+		Fixed	operator/(Fixed & rhs) const;
+
+		Fixed&	operator++(void); // prefix
+		Fixed	operator++(int); // postfix
+		Fixed&	operator--(void); // prefix
+		Fixed	operator--(int); // postfix
+
+		static Fixed&		min(Fixed &a, Fixed &b);
+		static const Fixed&	min(const Fixed &a, const Fixed &b);
+		static Fixed&		max(Fixed &a, Fixed &b);
+		static const Fixed&	max(const Fixed &a, const Fixed &b);
 };
+
