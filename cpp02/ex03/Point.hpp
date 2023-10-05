@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Point.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 22:30:25 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/04 21:04:14 by meskelin         ###   ########.fr       */
+/*   Created: 2023/10/04 21:37:33 by meskelin          #+#    #+#             */
+/*   Updated: 2023/10/04 21:52:10 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
 #include "Fixed.hpp"
 
-int main( void ) {
-	Fixed a;
-	Fixed const b(Fixed( 5.05f ) * Fixed( 2 ));
+class Point {
+	private:
+		const Fixed	_x;
+		const Fixed	_y;
 
-	std::cout << a << std::endl;
-	std::cout << ++a << std::endl;
-	std::cout << a << std::endl;
-	std::cout << a++ << std::endl;
-	std::cout << a << std::endl;
-	std::cout << b << std::endl;
-	std::cout << Fixed::max( a, b ) << std::endl;
-	return 0;
-}
+	public:
+		Point(void);
+		Point(const float x, const float y);
+		Point(const Point & rhs);
+		~Point(void);
+
+		Point&	operator=(const Point& rhs);
+		Fixed	getX(void) const;
+		Fixed	getY(void) const;
+};
