@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 22:30:19 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/04 21:04:53 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/16 10:21:32 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ class Fixed {
 		bool	operator==(Fixed & rhs) const;
 		bool	operator!=(Fixed & rhs) const;
 
-		Fixed	operator+(Fixed & rhs) const;
-		Fixed	operator-(Fixed & rhs) const;
-		Fixed	operator*(Fixed & rhs) const;
-		Fixed	operator/(Fixed & rhs) const;
+		Fixed	operator+(const Fixed & rhs) const;
+		Fixed	operator-(const Fixed & rhs) const;
+		Fixed	operator*(const Fixed & rhs) const;
+		Fixed	operator/(const Fixed & rhs) const;
 
 		Fixed&	operator++(void); // prefix
 		Fixed	operator++(int); // postfix
@@ -55,3 +55,4 @@ class Fixed {
 		static const Fixed&	max(const Fixed &a, const Fixed &b);
 };
 
+std::ostream &operator<<(std::ostream &out, Fixed const &nbr);
