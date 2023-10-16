@@ -6,14 +6,15 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 22:30:03 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/03 22:30:04 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:01:44 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "Fixed.hpp"
 
-int main( void ) {
+int main(void)
+{
 	Fixed a;
 	Fixed const b(10);
 	Fixed const c(42.42f);
