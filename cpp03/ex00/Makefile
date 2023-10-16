@@ -6,24 +6,24 @@
 #    By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/16 19:58:45 by meskelin          #+#    #+#              #
-#    Updated: 2023/10/16 20:03:21 by meskelin         ###   ########.fr        #
+#    Updated: 2023/10/16 20:51:07 by meskelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = clapTrap
 
-BUILD_FLAGS = -Wall -Wextra std=c++98 # -Werror
+BUILD_FLAGS = -Wall -Wextra -std=c++98 # -Werror
 
-SRC = clapTrap
+SRC = ClapTrap
 
-H = clapTrap
+H = ClapTrap
 
 SRC_SUFF = $(addsuffix .cpp, $(SRC))
-HEADER_SUFF = $(addsuffix .cpp, $(SRC_SUFF))
+HEADER_SUFF = $(addsuffix .hpp, $(SRC))
 
 SRCO = $(addsuffix .o, $(SRC))
 
-.PHONY all $(NAME) clean fclean re
+.PHONY: all $(NAME) clean fclean re
 all: $(NAME)
 
 $(NAME): main.cpp $(SRC_SUFF) $(HEADER_SUFF)
