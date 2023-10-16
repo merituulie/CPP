@@ -6,14 +6,13 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 17:24:31 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/12 10:33:26 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:56:05 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HUMANB_H
 # define HUMANB_H
 
-# include <iostream>
 # include "Weapon.hpp"
 
 class HumanB {

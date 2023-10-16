@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 22:29:16 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/03 22:44:47 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/16 11:14:45 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@ Fixed::Fixed(void) : _fixedPointValue(0)
 	std::cout << "Default constructor called" << std::endl;
 }
 
-Fixed::Fixed(Fixed const &rhs)
+Fixed::Fixed(Fixed const &rhs) : _fixedPointValue(rhs._fixedPointValue)
 {
 	std::cout << "Copy constructor called" << std::endl;
-	*this = rhs;
 }
 
 Fixed::~Fixed(void)

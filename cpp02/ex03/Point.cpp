@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 21:43:00 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/04 21:53:55 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/16 10:43:00 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@ Point::Point(const float x, const float y) : _x(x), _y(y)
 {
 }
 
-Point::Point(const Point &rhs)
+Point::Point(const Point &rhs) : _x(rhs._x), _y(rhs._y)
 {
-	*this = rhs;
 }
 
 Point::~Point()
@@ -33,8 +32,8 @@ Point&	Point::operator=(const Point& rhs)
 {
 	if (this != &rhs)
 	{
-		(Fixed)this->_x = rhs.getX();
-		(Fixed)this->_y = rhs.getY();
+		(Fixed)_x = rhs.getX();
+		(Fixed)_y = rhs.getY();
 	}
 
 	return *this;
@@ -42,10 +41,10 @@ Point&	Point::operator=(const Point& rhs)
 
 Fixed	Point::getX() const
 {
-	return (this->_x);
+	return this->_x;
 }
 
 Fixed	Point::getY() const
 {
-	return (this->_y);
+	return this->_y;
 }

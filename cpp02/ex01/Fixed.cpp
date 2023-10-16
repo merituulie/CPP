@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 22:29:47 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/03 22:29:48 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/16 11:20:53 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ float Fixed::toFloat(void) const
 	return (float)this->_fixedPointValue / (float)(1 << _fractionalBits);
 }
 
-std::ostream &operator<<(std::ostream &out, Fixed const &nbr)
+std::ostream & operator<<(std::ostream &out, const Fixed &rhs)
 {
-	out << nbr.toFloat();
+	out << rhs.toFloat();
 	return out;
 }

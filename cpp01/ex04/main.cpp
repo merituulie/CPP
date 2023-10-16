@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 21:32:00 by meskelin          #+#    #+#             */
-/*   Updated: 2023/09/12 11:33:46 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/09/12 15:40:55 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	replace(char **argv)
 
 	std::ifstream	infile;
 	infile.open(input_file);
-	if (infile.fail())
+	if (infile.fail() || infile.peek() == EOF)
 	{
 		std::cerr << "Error when opening the file" << std::endl;
 		return ;
@@ -36,16 +36,21 @@ void	replace(char **argv)
 
 	std::string	temp;
 	std::string	to_replace = (std::string)argv[2];
+	std::string	replace_with = (std::string)argv[3];
 	size_t		to_replace_l = to_replace.length();
+	size_t		replace_l = replace_with.length();
 	while (std::getline(infile, temp))
 	{
 		size_t pos = temp.find(to_replace);
 		while (pos != std::string::npos)
 		{
-			temp.replace(pos, to_replace_l, argv[3]);
-			pos = temp.find(to_replace, pos += to_replace_l);
+			temp.replace(pos, to_replace_l, replace_with);
+			pos = temp.find(to_replace, pos += replace_l);
 		}
-		outfile << temp << "\n";
+		if (infile.peek() == EOF)
+			outfile << temp;
+		else
+			outfile << temp << "\n";
 	}
 	infile.close();
 	outfile.close();

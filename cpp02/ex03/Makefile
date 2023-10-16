@@ -6,17 +6,20 @@
 #    By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/26 11:12:25 by meskelin          #+#    #+#              #
-#    Updated: 2023/10/03 22:30:30 by meskelin         ###   ########.fr        #
+#    Updated: 2023/10/16 10:26:16 by meskelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fixedPoint
+NAME = BSP
 
 BUILD_FLAGS = -Wall -Wextra -std=c++98 -Werror
 
-SRC =	Fixed
+SRC =	Fixed \
+		Point \
+		bsp
 
-H = Fixed
+H = Fixed \
+	Point
 
 SRC_SUFF = $(addsuffix .cpp, $(SRC))
 HEADER_SUFF = $(addsuffix .hpp, $(H))
@@ -27,7 +30,7 @@ SRCSO = $(addsuffix .o, $(SRC))
 all: $(NAME)
 
 $(NAME): main.cpp $(SRC_SUFF) $(HEADER_SUFF)
-	c++ $(BUILD_FLAGS) $(SRC_SUFF) main.cpp -o $(NAME) -I $(HEADER_SUFF)
+	c++ $(BUILD_FLAGS) $(SRC_SUFF) main.cpp -o $(NAME)
 
 clean:
 	rm -f $(SRCSO)
