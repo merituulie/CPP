@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/16 21:04:41 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/21 13:36:20 by meskelin         ###   ########.fr       */
+/*   Created: 2023/10/21 13:13:06 by meskelin          #+#    #+#             */
+/*   Updated: 2023/10/21 13:42:26 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,22 @@
 
 ScavTrap::ScavTrap(void) : ClapTrap()
 {
-	std::cout << "ScavTrap: default constructor is called\n";
-}
-
-ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
-{
-	std::cout << "ScavTrap: constructor with name parameter '" << name << "' is called\n";
+	std::cout << "ScavTrap: Default constructor called\n";
 }
 
 ScavTrap::~ScavTrap(void)
 {
-	std::cout << "ScavTrap: deconstructor is called\n";
+	std::cout << "ScavTrap: Default constructor called\n";
 }
 
-ScavTrap::ScavTrap(const ScavTrap &rhs) : ClapTrap(rhs), _isGuarding(rhs._isGuarding)
+ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 {
-	std::cout << "ScavTrap: copy constructor is called\n";
-	*this = rhs;
+	std::cout << "ScavTrap: Name constructor called\n";
+}
+
+ScavTrap::ScavTrap(const ScavTrap& rhs) : ClapTrap(rhs), _isGuarding(rhs._isGuarding)
+{
+	std::cout << "ScavTrap: Copy constructor called\n";
 }
 
 ScavTrap& ScavTrap::operator=(const ScavTrap& rhs)

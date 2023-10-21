@@ -5,31 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/16 20:11:11 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/21 13:10:23 by meskelin         ###   ########.fr       */
+/*   Created: 2023/10/21 13:02:50 by meskelin          #+#    #+#             */
+/*   Updated: 2023/10/21 13:42:44 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(void) : _hitPoints(_totalHitPoints), _energyPoints(_totalHitPoints), _attackDamage(0)
+ClapTrap::ClapTrap(void) : _hitPoints(100), _energyPoints(100), _attackDamage(30)
 {
-	std::cout << "ClapTrap: default constructor is called\n";
+	std::cout << "ClapTrap: default constructor called\n";
 }
 
-ClapTrap::ClapTrap(std::string name) : _name(name), _hitPoints(_totalHitPoints), _energyPoints(_totalHitPoints), _attackDamage(0)
+ClapTrap::ClapTrap(std::string name) : _name(name), _hitPoints(100), _energyPoints(100), _attackDamage(30)
 {
-	std::cout << "ClapTrap: constructor with name parameter is called\n";
+	std::cout << "ClapTrap: name constructor called\n";
+}
+
+ClapTrap::ClapTrap(const ClapTrap& rhs) :  _name(rhs._name), _hitPoints(rhs._hitPoints), _energyPoints(rhs._energyPoints), _attackDamage(rhs._attackDamage)
+{
+	std::cout << "ClapTrap: copy constructor called\n";
 }
 
 ClapTrap::~ClapTrap(void)
 {
-	std::cout << "ClapTrap: deconstructor is called\n";
-}
-
-ClapTrap::ClapTrap(const ClapTrap &rhs) :_name(rhs._name), _hitPoints(rhs._hitPoints), _energyPoints(rhs._energyPoints), _attackDamage(rhs._attackDamage)
-{
-	std::cout << "ClapTrap: copy constructor is called\n";
+	std::cout << "ClapTrap: deconstructor called\n";
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& rhs)

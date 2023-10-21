@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/16 20:58:06 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/21 13:01:45 by meskelin         ###   ########.fr       */
+/*   Created: 2023/10/21 12:57:52 by meskelin          #+#    #+#             */
+/*   Updated: 2023/10/21 13:42:04 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@
 class ScavTrap : public ClapTrap
 {
 	private:
-		bool	_isGuarding;
+		bool _isGuarding;
 
 	public:
-		ScavTrap(void);
 		~ScavTrap(void);
+		ScavTrap(void);
 		ScavTrap(std::string name);
-		ScavTrap(const ScavTrap &rhs);
+		ScavTrap(const ScavTrap& rhs);
 
-		ScavTrap &operator=(const ScavTrap &rhs);
+		ScavTrap& operator=(const ScavTrap& rhs);
 
-		void	guardGate(void);
 		void	attack(const std::string& target);
+		void	guardGate(void);
 };
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 20:57:21 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/16 21:48:15 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/21 13:10:34 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(void)
+ClapTrap::ClapTrap(void) : _hitPoints(100), _energyPoints(50), _attackDamage(20)
 {
 	std::cout << "ClapTrap: default constructor is called\n";
 }
@@ -36,6 +36,7 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& rhs)
 {
 	if (this != &rhs)
 	{
+		this->_name = rhs._name;
 		this->_hitPoints = rhs._hitPoints;
 		this->_energyPoints = rhs._energyPoints;
 		this->_attackDamage = rhs._attackDamage;
