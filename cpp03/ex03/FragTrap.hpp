@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 13:24:14 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/21 14:44:20 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/21 14:43:30 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "ClapTrap.hpp"
 
-class FragTrap : public ClapTrap
+class FragTrap : public virtual ClapTrap
 {
 	private:
 		bool _isGuarding;

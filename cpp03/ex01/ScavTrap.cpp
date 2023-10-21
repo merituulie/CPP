@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 21:04:41 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/21 13:36:20 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/21 14:36:33 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,19 @@
 
 ScavTrap::ScavTrap(void) : ClapTrap()
 {
+	this->_hitPoints = 100;
+	this->_energyPoints = 50;
+	this->_attackDamage = 20;
+	this->_isGuarding = false;
 	std::cout << "ScavTrap: default constructor is called\n";
 }
 
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 {
+	this->_hitPoints = 100;
+	this->_energyPoints = 50;
+	this->_attackDamage = 20;
+	this->_isGuarding = false;
 	std::cout << "ScavTrap: constructor with name parameter '" << name << "' is called\n";
 }
 

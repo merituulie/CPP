@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 13:13:06 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/21 14:39:05 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/21 14:39:58 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ ScavTrap& ScavTrap::operator=(const ScavTrap& rhs)
 {
 	if (this != &rhs)
 	{
-		this->_name = rhs._name;
 		this->_hitPoints = rhs._hitPoints;
 		this->_energyPoints = rhs._energyPoints;
 		this->_attackDamage = rhs._attackDamage;

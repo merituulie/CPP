@@ -6,21 +6,23 @@
 #    By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/16 19:58:45 by meskelin          #+#    #+#              #
-#    Updated: 2023/10/21 13:59:29 by meskelin         ###   ########.fr        #
+#    Updated: 2023/10/21 15:17:54 by meskelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fragTrap
+NAME = diamondTrap
 
-BUILD_FLAGS = -Wall -Wextra -std=c++98 -Werror
+BUILD_FLAGS = -Wall -Wextra -std=c++98 -Wshadow -Werror
 
 SRC = ClapTrap \
 		ScavTrap \
-		FragTrap
+		FragTrap \
+		DiamondTrap
 
 H = ClapTrap \
 	ScavTrap \
-	FragTrap
+	FragTrap \
+	DiamondTrap
 
 SRC_SUFF = $(addsuffix .cpp, $(SRC))
 HEADER_SUFF = $(addsuffix .hpp, $(SRC))

@@ -5,31 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/16 20:57:21 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/21 14:34:08 by meskelin         ###   ########.fr       */
+/*   Created: 2023/10/21 13:02:50 by meskelin          #+#    #+#             */
+/*   Updated: 2023/10/21 15:05:03 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(void) : _hitPoints(10), _energyPoints(10), _attackDamage(0)
+ClapTrap::ClapTrap(void) : _hitPoints(100), _energyPoints(100), _attackDamage(30)
 {
-	std::cout << "ClapTrap: default constructor is called\n";
+	std::cout << "ClapTrap: Default constructor called\n";
 }
 
-ClapTrap::ClapTrap(std::string name) : _name(name), _hitPoints(100), _energyPoints(50), _attackDamage(20)
+ClapTrap::ClapTrap(std::string name) : _name(name), _hitPoints(100), _energyPoints(100), _attackDamage(30)
 {
-	std::cout << "ClapTrap: constructor with name parameter is called\n";
+	std::cout << "ClapTrap: Name constructor called\n";
+}
+
+ClapTrap::ClapTrap(const ClapTrap& rhs) :  _name(rhs._name), _hitPoints(rhs._hitPoints), _energyPoints(rhs._energyPoints), _attackDamage(rhs._attackDamage)
+{
+	std::cout << "ClapTrap: copy constructor called\n";
 }
 
 ClapTrap::~ClapTrap(void)
 {
-	std::cout << "ClapTrap: deconstructor is called\n";
-}
-
-ClapTrap::ClapTrap(const ClapTrap &rhs) : _name(rhs._name), _hitPoints(rhs._hitPoints), _energyPoints(rhs._energyPoints), _attackDamage(rhs._attackDamage)
-{
-	std::cout << "ClapTrap: copy constructor is called\n";
+	std::cout << "ClapTrap: deconstructor called\n";
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& rhs)
@@ -80,4 +80,12 @@ void ClapTrap::beRepaired(unsigned int amount)
 	this->_hitPoints += amount;
 
 	std::cout << "ClapTrap: " << _name << " gets repaired for " << amount << " hit points and is left with " << this->_hitPoints << " hit points!" << std::endl;
+}
+
+void	ClapTrap::printTrap(void)
+{
+	std::cout << "Name: " << this->_name << std::endl;
+	std::cout << "Hit points: " << this->_hitPoints << std::endl;
+	std::cout << "Energy points: " << this->_energyPoints << std::endl;
+	std::cout << "Attack damage: " << this->_attackDamage << std::endl;
 }
