@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 21:04:41 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/16 21:45:01 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/21 12:46:55 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,5 @@ void ScavTrap::attack(const std::string &target)
 void	ScavTrap::guardGate()
 {
 	std::cout << "ScavTrap: is now in guard mode." << std::endl;
+	this->_isGuarding = true;
 }
