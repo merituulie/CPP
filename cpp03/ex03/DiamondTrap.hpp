@@ -6,12 +6,12 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 14:00:20 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/21 15:07:02 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/23 12:07:24 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DIAMOND_TRAP_H
-# define DIAMONG_TRAP_H
+# define DIAMOND_TRAP_H
 
 #include "ScavTrap.hpp"
 #include "FragTrap.hpp"

@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 13:30:01 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/21 15:06:27 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/23 12:12:21 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int main(void)
 	scavBella.attack("Ufo");
 	scavBella.guardGate();
 	std::cout << "----------------------------------------\n\n";
-
 
 	std::cout << "----- Basic FragTrap construction -----\n";
 	FragTrap fragBella("FragBella");
@@ -64,8 +63,8 @@ int main(void)
 	donna.attack("Ufo");
 	std::cout << "Calling the = operator overload for Donna.\n";
 	donna = diamondBella;
+	donna.whoAmI();
 	donna.beRepaired(1);
-	donna.printTrap();
 	std::cout << "-----------------------------------------\n\n";
 
 	return 0;

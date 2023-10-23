@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 12:52:45 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/21 15:06:48 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/23 12:05:22 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ class ClapTrap {
 		int					_energyPoints;
 		int					_attackDamage;
 
-	public:
 		ClapTrap(void);
+
+	public:
 		~ClapTrap(void);
 		ClapTrap(std::string name);
 		ClapTrap(const ClapTrap& rhs);

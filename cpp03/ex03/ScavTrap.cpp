@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 13:13:06 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/21 14:39:58 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/23 12:13:18 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,12 @@ ScavTrap::ScavTrap(void) : ClapTrap()
 	this->_hitPoints = 100;
 	this->_energyPoints = 50;
 	this->_attackDamage = 20;
-	this->_isGuarding = false;
 	std::cout << "ScavTrap: Default constructor called\n";
 }
 
 ScavTrap::~ScavTrap(void)
 {
-	std::cout << "ScavTrap: Default constructor called\n";
+	std::cout << "ScavTrap: Deonstructor called\n";
 }
 
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
@@ -31,11 +30,10 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 	this->_hitPoints = 100;
 	this->_energyPoints = 50;
 	this->_attackDamage = 20;
-	this->_isGuarding = false;
 	std::cout << "ScavTrap: Name constructor called\n";
 }
 
-ScavTrap::ScavTrap(const ScavTrap& rhs) : ClapTrap(rhs), _isGuarding(rhs._isGuarding)
+ScavTrap::ScavTrap(const ScavTrap& rhs) : ClapTrap(rhs)
 {
 	std::cout << "ScavTrap: Copy constructor called\n";
 	*this = rhs;
@@ -48,7 +46,6 @@ ScavTrap& ScavTrap::operator=(const ScavTrap& rhs)
 		this->_hitPoints = rhs._hitPoints;
 		this->_energyPoints = rhs._energyPoints;
 		this->_attackDamage = rhs._attackDamage;
-		this->_isGuarding = rhs._isGuarding;
 	}
 
 	return (*this);
@@ -69,5 +66,4 @@ void ScavTrap::attack(const std::string &target)
 void	ScavTrap::guardGate()
 {
 	std::cout << "ScavTrap: is now in guard mode." << std::endl;
-	this->_isGuarding = true;
 }

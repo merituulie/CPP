@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 13:24:14 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/21 14:43:30 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/23 12:05:46 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@
 
 class FragTrap : public virtual ClapTrap
 {
-	private:
-		bool _isGuarding;
+	protected:
+		FragTrap(void);
 
 	public:
 		~FragTrap(void);
-		FragTrap(void);
 		FragTrap(std::string name);
 		FragTrap(const FragTrap& rhs);
 

@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 14:18:39 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/21 15:13:13 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/23 12:11:13 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,13 @@ DiamondTrap&	DiamondTrap::operator=(const DiamondTrap& rhs)
 {
 	if (this != &rhs)
 	{
+		ClapTrap::_name = rhs._name + "_clap_name";
 		this->_name = rhs._name;
 		this->_hitPoints = rhs._hitPoints;
 		this->_attackDamage = rhs._attackDamage;
 		this->_energyPoints = rhs._energyPoints;
 	}
+	std::cout << this->_name << " and " << rhs._name << std::endl;
 
 	return *this;
 }
