@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 12:57:52 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/21 13:42:04 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/23 12:03:37 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@
 class ScavTrap : public ClapTrap
 {
 	private:
-		bool _isGuarding;
-
+		ScavTrap(void);
 	public:
 		~ScavTrap(void);
-		ScavTrap(void);
 		ScavTrap(std::string name);
 		ScavTrap(const ScavTrap& rhs);
 

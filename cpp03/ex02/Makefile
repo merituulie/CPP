@@ -6,7 +6,7 @@
 #    By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/16 19:58:45 by meskelin          #+#    #+#              #
-#    Updated: 2023/10/21 13:59:29 by meskelin         ###   ########.fr        #
+#    Updated: 2023/10/23 12:02:16 by meskelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRCO = $(addsuffix .o, $(SRC))
 all: $(NAME)
 
 $(NAME): main.cpp $(SRC_SUFF) $(HEADER_SUFF)
-	c++ $(BUILD_FLAGS) $(SRC_SUFF) main.cpp -o $(NAME) -I $(HEADER_SUFF)
+	c++ $(BUILD_FLAGS) $(SRC_SUFF) main.cpp -o $(NAME)
 
 clean:
 	rm -f $(SRCSO)
