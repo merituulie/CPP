@@ -6,13 +6,15 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 17:11:03 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/21 17:42:23 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/23 12:50:24 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Dog.hpp"
 #include "Cat.hpp"
 #include "Animal.hpp"
+#include "WrongAnimal.hpp"
+#include "WrongCat.hpp"
 
 int main()
 {
@@ -27,16 +29,36 @@ int main()
 	kitty->makeSound();
 	meta->makeSound();
 
+	std::cout << "---------Test non virtual-------\n";
+	const WrongAnimal* wrongAnimal = new WrongAnimal();
+	const WrongAnimal* wrongCat = new WrongCat();
+	const WrongCat* wrongCat1 = new WrongCat();
+	std::cout << "Type: " << wrongAnimal->getType() << " " << std::endl;
+	std::cout << "Type: " << wrongCat->getType() << " " << std::endl;
+	std::cout << "Type: " << wrongCat1->getType() << " " << std::endl;
+	wrongCat->makeSound(); //will output the animal sound!
+	wrongCat1->makeSound(); //will output the cat sound!
+	wrongAnimal->makeSound();
+	std::cout << std::endl;
+	delete wrongAnimal;
+	delete wrongCat;
+	delete wrongCat1;
+	std::cout << "--------------------------------\n\n";
+
 	delete meta;
 	delete kitty;
 	delete doggo;
 	std::cout << std::endl;
 
 	std::cout << std::endl;
-	std::cout << "-------------Assignment test-------------" << std::endl;
+	std::cout << "-------------Assignment / Copy test-------------" << std::endl;
 	Dog doggo1;
 	Dog doggo2 = doggo1;
 	Dog doggo3 = Dog(doggo1);
+
+	std::cout << "doggo 1 address: " << &doggo1 << std::endl;
+	std::cout << "doggo 2 address: " << &doggo2 << std::endl;
+	std::cout << "doggo 3 address: " << &doggo3 << std::endl;
 
 	Cat kitty1;
 	Cat kitty2 = kitty1;

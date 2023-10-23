@@ -6,23 +6,27 @@
 #    By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/16 19:58:45 by meskelin          #+#    #+#              #
-#    Updated: 2023/10/21 17:28:22 by meskelin         ###   ########.fr        #
+#    Updated: 2023/10/23 12:50:45 by meskelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = animal
 
-BUILD_FLAGS = -Wall -Wextra -std=c++98 -fsanitize=address,undefined  #-Werror
+BUILD_FLAGS = -Wall -Wextra -std=c++98 -Werror
 
 SRC =	Brain \
 		Animal \
 		Dog \
 		Cat \
+		WrongAnimal \
+		WrongCat
 
 H =		Brain \
 		Animal \
 		Dog \
-		Cat
+		Cat \
+		WrongAnimal \
+		WrongCat
 
 SRC_SUFF = $(addsuffix .cpp, $(SRC))
 HEADER_SUFF = $(addsuffix .hpp, $(SRC))
