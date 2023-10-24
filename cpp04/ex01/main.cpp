@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 17:11:03 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/23 12:50:24 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/23 14:44:20 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ int main()
 	kitty->makeSound();
 	meta->makeSound();
 
+	std::cout << std::endl;
+	std::cout << "-------------Deep copy test-------------" << std::endl;
+	Dog basic;
+	{
+		Dog tmp = basic;
+	}
+	std::cout << "-----------------------------------------" << std::endl;
+
 	std::cout << "---------Test non virtual-------\n";
 	const WrongAnimal* wrongAnimal = new WrongAnimal();
 	const WrongAnimal* wrongCat = new WrongCat();
@@ -40,6 +48,7 @@ int main()
 	wrongCat1->makeSound(); //will output the cat sound!
 	wrongAnimal->makeSound();
 	std::cout << std::endl;
+
 	delete wrongAnimal;
 	delete wrongCat;
 	delete wrongCat1;

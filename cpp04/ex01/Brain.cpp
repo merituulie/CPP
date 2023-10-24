@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 16:56:30 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/21 17:31:41 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/23 15:12:11 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,5 @@ Brain& Brain::operator=(const Brain& rhs)
 		for (int i = 0; i < 100; i++)
 			this->ideas[i] = rhs.ideas[i];
 	}
-
 	return *this;
 }
