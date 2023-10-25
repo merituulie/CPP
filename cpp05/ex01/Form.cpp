@@ -6,13 +6,13 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:53:33 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/25 19:40:46 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/25 19:53:48 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Form.hpp"
 
-Form::Form(void) : _name("Undefined"), _minGradeToExecute(1), _minGradeToSign(1), _isSigned(false)
+Form::Form(void) : _name("Undefined"), _minGradeToSign(1), _minGradeToExecute(1), _isSigned(false)
 {
 }
 
@@ -53,11 +53,11 @@ const std::string &Form::getName() const
 	return this->_name;
 }
 
-const unsigned int &Form::getGradeTosSign() const
+const int &Form::getGradeTosSign() const
 {
 	return this->_minGradeToSign;
 }
-const unsigned int &Form::getGradeToExecute() const
+const int &Form::getGradeToExecute() const
 {
 	return this->_minGradeToExecute;
 }
@@ -67,9 +67,8 @@ bool Form::getIsSigned() const
 	return this->_isSigned;
 }
 
-void Form::beSigned(const Bureaucrat& signer)
+void Form::beSigned(const Bureaucrat &signer)
 {
-
 	int grade = signer.getGrade();
 	if (grade > _minGradeToSign)
 		throw Form::GradeTooLowException();

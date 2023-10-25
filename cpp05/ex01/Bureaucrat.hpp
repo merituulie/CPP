@@ -6,16 +6,17 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:26:04 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/25 19:40:32 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/25 19:52:32 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUR_H
-# define BUR_H
+#pragma once
 
 #include <iostream>
 #include <stdexcept>
+
 #include "Form.hpp"
+class Form;
 
 class Bureaucrat
 {
@@ -50,9 +51,7 @@ class Bureaucrat
 
 		void			incrementGrade();
 		void			decrementGrade();
-		bool			signForm(Form& form) const;
+		bool			signForm(Form &form) const;
 };
 
 std::ostream& operator<<(std::ostream& out, const Bureaucrat& rhs);
-
-#endif
