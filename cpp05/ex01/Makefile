@@ -6,16 +6,17 @@
 #    By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/21 15:56:21 by meskelin          #+#    #+#              #
-#    Updated: 2023/10/25 19:38:39 by meskelin         ###   ########.fr        #
+#    Updated: 2023/10/30 11:33:19 by meskelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ex00
+NAME = ex01
 
-BUILD_FLAGS = -Wall -Wextra -std=c++98 -Werror
+BUILD_FLAGS = -Wall -Wextra -std=c++98 #-Werror
 
 SRC =	Bureaucrat \
-		Form
+		Form \
+		tests
 
 H =		Bureaucrat \
 		Form
@@ -28,7 +29,7 @@ SRCO = $(addsuffix .o, $(SRC))
 .PHONY: all $(NAME) clean fclean re
 all: $(NAME)
 
-$(NAME): main.cpp $(SRC_SUFF) $(HEADER_SUFF)
+$(NAME): $(SRC_SUFF) $(HEADER_SUFF) main.cpp
 	c++ $(BUILD_FLAGS) $(SRC_SUFF) main.cpp -o $(NAME)
 
 clean:

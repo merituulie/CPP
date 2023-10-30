@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:41:13 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/25 19:54:00 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/30 12:36:24 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ class Form
 		const int			&getGradeToExecute() const;
 		bool				getIsSigned() const;
 
-		void				beSigned(const Bureaucrat &signer);
+		bool				beSigned(const Bureaucrat &signer);
 
 		class GradeTooHighException : public std::exception
 		{

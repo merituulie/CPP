@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:42:15 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/25 19:54:12 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:13:20 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ bool	Bureaucrat::signForm(Form& form) const
 {
 	try
 	{
-		form.beSigned(*this);
+		if (!form.beSigned(*this))
+			return false;
 	}
 	catch (Form::GradeTooLowException& e)
 	{
