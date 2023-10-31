@@ -6,25 +6,13 @@
 #    By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/21 15:56:21 by meskelin          #+#    #+#              #
-#    Updated: 2023/10/21 16:40:36 by meskelin         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/10/16 19:58:45 by meskelin          #+#    #+#              #
-#    Updated: 2023/10/21 12:49:01 by meskelin         ###   ########.fr        #
+#    Updated: 2023/10/23 12:44:00 by meskelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = animal
 
-BUILD_FLAGS = -Wall -Wextra -std=c++98 #-Werror
+BUILD_FLAGS = -Wall -Wextra -std=c++98 -Werror
 
 SRC =	Animal \
 		Dog \
@@ -47,7 +35,7 @@ SRCO = $(addsuffix .o, $(SRC))
 all: $(NAME)
 
 $(NAME): main.cpp $(SRC_SUFF) $(HEADER_SUFF)
-	c++ $(BUILD_FLAGS) $(SRC_SUFF) main.cpp -o $(NAME) -I $(HEADER_SUFF)
+	c++ $(BUILD_FLAGS) $(SRC_SUFF) main.cpp -o $(NAME)
 
 clean:
 	rm -f $(SRCSO)

@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 16:06:35 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/21 17:30:24 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/23 15:16:27 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,6 @@ Animal &Animal::operator=(const Animal &rhs)
 		this->type = rhs.type;
 
 	return *this;
-}
-
-void Animal::makeSound() const
-{
-	std::cout << this->type << " says: * undefined *\n";
 }
 
 std::string Animal::getType() const
