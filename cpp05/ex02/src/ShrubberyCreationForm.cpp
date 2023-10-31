@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 16:44:31 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/30 19:54:48 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:11:21 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void ShrubberyCreationForm::execute(const Bureaucrat &executor) const
 	"{{{{{{{}{{{{(`)}}}}}}" << std::endl <<
 	" {{{{{(`){}}{{{{(`)}'" << std::endl <<
 	"  {{{{{(`){{{{(`)}'" << std::endl <<
-	" ~~~~~~~~~~~~~~~~~~~" << std::endl <<
-	std::endl;
+	" ~~~~~~~~~~~~~~~~~~~" << std::endl;
 	out.close();
 }

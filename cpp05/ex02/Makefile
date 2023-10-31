@@ -6,7 +6,7 @@
 #    By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/21 15:56:21 by meskelin          #+#    #+#              #
-#    Updated: 2023/10/31 11:18:17 by meskelin         ###   ########.fr        #
+#    Updated: 2023/10/31 16:58:16 by meskelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,12 @@ BUILD_FLAGS = -Wall -Wextra -std=c++98 -Werror
 SRC =	Bureaucrat \
 		AForm \
 		ShrubberyCreationForm \
+		RobotomyRequestForm \
 		tests
 
 H =		Bureaucrat \
 		ShrubberyCreationForm \
+		RobotomyRequestForm \
 		AForm
 
 SRC_PRE = $(addprefix ./src/, $(SRC))

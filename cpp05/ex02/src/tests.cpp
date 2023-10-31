@@ -6,12 +6,13 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:18:20 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/31 12:31:59 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:04:58 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Bureaucrat.hpp"
 #include "../includes/ShrubberyCreationForm.hpp"
+#include "../includes/RobotomyRequestForm.hpp"
 #include <iostream>
 
 void test_invalid_init_bur()
@@ -49,7 +50,12 @@ void test_invalid_init_bur()
 	{
 		std::cerr << "\033[33mFAIL: " << e.what() << "\033[0m" << std::endl;
 		std::cout << "-------------------------------------------" << std::endl;
+		std::cerr << "\033[32mTEST OKAY\033[0m" << std::endl;
+		std::cout << "-------------------------------------------" << std::endl;
+		return ;
 	}
+	std::cerr << "\033[31mFAILED\033[0m" << std::endl;
+	std::cout << "-------------------------------------------" << std::endl;
 }
 
 void test_valid_init_bur()
@@ -65,22 +71,25 @@ void test_valid_init_bur()
 		std::cout << monica << std::endl;
 		Bureaucrat monicasFan(monica);
 		std::cout << monicasFan << std::endl;
-		std::cout << "------------OVERLOAD----------------------" << std::endl;
+		std::cout << "- OVERLOAD -" << std::endl;
 		std::cout << "Original: " << bjorn << std::endl;
 		bjorn = monica;
 		std::cout << "After:    " << bjorn << std::endl;
 	}
 	catch(const Bureaucrat::GradeTooHighException& e)
 	{
-		std::cerr << "\033[33mFAIL: " << e.what() << "\033[0m" << std::endl;
+		std::cerr << "\033[31mFAIL: " << e.what() << "\033[0m" << std::endl;
 		std::cout << "-------------------------------------------" << std::endl;
 	}
 	catch(const Bureaucrat::GradeTooLowException& e)
 	{
-		std::cerr << "\033[33mFAIL: " << e.what() << "\033[0m" << std::endl;
+		std::cerr << "\033[31mFAIL: " << e.what() << "\033[0m" << std::endl;
 		std::cout << "-------------------------------------------" << std::endl;
 	}
-	std::cout << "\033[32mOKAY\033[0m" << std::endl;
+
+	std::cerr << "\033[32mTEST OKAY\033[0m" << std::endl;
+	std::cout << "-------------------------------------------" << std::endl;
+	return ;
 }
 
 void test_invalid_grade_update_bur()
@@ -109,7 +118,12 @@ void test_invalid_grade_update_bur()
 	{
 		std::cerr << "\033[33mFAIL: " << e.what() << "\033[0m" << std::endl;
 		std::cout << "-------------------------------------------" << std::endl;
+		std::cerr << "\033[32mTEST OKAY\033[0m" << std::endl;
+		std::cout << "-------------------------------------------" << std::endl;
+		return ;
 	}
+	std::cerr << "\033[31mFAILED\033[0m" << std::endl;
+	std::cout << "-------------------------------------------" << std::endl;
 }
 
 void test_valid_grade_update_bur()
@@ -132,20 +146,21 @@ void test_valid_grade_update_bur()
 	}
 	catch(const Bureaucrat::GradeTooHighException& e)
 	{
-		std::cerr << "\033[33mFAIL: " << e.what() << "\033[0m" << std::endl;
+		std::cerr << "\033[31mFAIL: " << e.what() << "\033[0m" << std::endl;
 		std::cout << "-------------------------------------------" << std::endl;
 	}
 	catch(const Bureaucrat::GradeTooLowException& e)
 	{
-		std::cerr << "\033[33mFAIL: " << e.what() << "\033[0m" << std::endl;
+		std::cerr << "\033[31mFAIL: " << e.what() << "\033[0m" << std::endl;
 		std::cout << "-------------------------------------------" << std::endl;
 	}
-	std::cout << "\033[32mOKAY\033[0m" << std::endl;
+	std::cerr << "\033[32mTEST OKAY\033[0m" << std::endl;
+	std::cout << "-------------------------------------------" << std::endl;
 }
 
 void test_valid_shrubbery()
 {
-	std::cout << "------------VALID SHRUBBERY--------------------" << std::endl;
+	std::cout << "------------VALID SHRUBBERY----------------" << std::endl;
 	try
 	{
 		ShrubberyCreationForm form("Home");
@@ -156,23 +171,136 @@ void test_valid_shrubbery()
 			|| form.getGradeToSign() != 145
 			|| form.getGradeToExecute() != 137)
 		{
-			std::cerr << "\033[33mFAIL\033[0m" << std::endl;
+			std::cerr << "\033[31mFAIL\033[0m" << std::endl;
 			std::cout << "-------------------------------------------" << std::endl;
 		}
 		Bureaucrat bur("Bjorn", 130);
 		bur.signForm(form);
 		bur.executeForm(form);
 	}
-	catch(const AForm::GradeTooHighException& e)
+	catch(const Bureaucrat::GradeTooHighException& e)
 	{
-		std::cerr << "\033[33mFAIL: " << e.what() << "\033[0m" << std::endl;
+		std::cerr << "\033[31mTEST FAILED: " << e.what() << "\033[0m" << std::endl;
 		std::cout << "-------------------------------------------" << std::endl;
 	}
 	catch(const AForm::GradeTooLowException& e)
 	{
+		std::cerr << "\033[31mFAILED: " << e.what() << "\033[0m" << std::endl;
+		std::cout << "-------------------------------------------" << std::endl;
+	}
+	std::cerr << "\033[32mTEST OKAY\033[0m" << std::endl;
+	std::cout << "-------------------------------------------" << std::endl;
+}
+
+void test_invalid_shrubbery()
+{
+	std::cout << "------------INVALID SHRUBBERY--------------" << std::endl;
+	try
+	{
+		std::cout << "- TRYING TO EXECUTE BEFORE SIGNING -" << std::endl;
+		ShrubberyCreationForm form("Home");
+		Bureaucrat bur("Bjorn", 130);
+		bur.executeForm(form);
+	}
+	catch(const AForm::NotSignedException& e)
+	{
 		std::cerr << "\033[33mFAIL: " << e.what() << "\033[0m" << std::endl;
 		std::cout << "-------------------------------------------" << std::endl;
 	}
-	std::cout << "\033[32mOKAY\033[0m" << std::endl;
+
+	try
+	{
+		std::cout << "- TRYING TO SIGN WITH NO GRADE -" << std::endl;
+		ShrubberyCreationForm form("Home");
+		std::cout << form << std::endl;
+		Bureaucrat bur("Bjorn", 150);
+		bur.signForm(form);
+	}
+	catch(const Bureaucrat::GradeTooLowException& e)
+	{
+		std::cerr << "\033[33mFAIL: " << e.what() << "\033[0m" << std::endl;
+		std::cout << "-------------------------------------------" << std::endl;
+		std::cerr << "\033[32mTEST OKAY\033[0m" << std::endl;
+		std::cout << "-------------------------------------------" << std::endl;
+		return ;
+	}
+	std::cerr << "\033[31mTEST FAILED\033[0m" << std::endl;
+	std::cout << "-------------------------------------------" << std::endl;
+}
+
+void test_valid_robotomy()
+{
+	std::cout << "------------VALID ROBOTOMY----------------" << std::endl;
+	try
+	{
+		RobotomyRequestForm form("Home");
+		std::cout << form << std::endl;
+		if (form.getTarget() != "Home"
+			|| form.getIsSigned() != false
+			|| form.getName() != "RobotomyRequestForm"
+			|| form.getGradeToSign() != 72
+			|| form.getGradeToExecute() != 45)
+		{
+			std::cerr << "\033[31mFAIL\033[0m" << std::endl;
+			std::cout << "-------------------------------------------" << std::endl;
+			return ;
+		}
+		Bureaucrat bur("Bjorn", 30);
+		bur.signForm(form);
+		std::cout << "- EXECUTE MULTIPLE TIMES -" << std::endl;
+		bur.executeForm(form);
+		bur.executeForm(form);
+		bur.executeForm(form);
+		bur.executeForm(form);
+		bur.executeForm(form);
+		bur.executeForm(form);
+	}
+	catch(const Bureaucrat::GradeTooHighException& e)
+	{
+		std::cerr << "\033[31mTEST FAILED: " << e.what() << "\033[0m" << std::endl;
+		std::cout << "-------------------------------------------" << std::endl;
+	}
+	catch(const AForm::GradeTooLowException& e)
+	{
+		std::cerr << "\033[31mFAILED: " << e.what() << "\033[0m" << std::endl;
+		std::cout << "-------------------------------------------" << std::endl;
+	}
+	std::cerr << "\033[32mTEST OKAY\033[0m" << std::endl;
+	std::cout << "-------------------------------------------" << std::endl;
+}
+
+void test_invalid_robotomy()
+{
+	std::cout << "------------INVALID ROBOTOMY--------------" << std::endl;
+	try
+	{
+		std::cout << "- TRYING TO EXECUTE BEFORE SIGNING -" << std::endl;
+		RobotomyRequestForm form("Home");
+		Bureaucrat bur("Bjorn", 30);
+		bur.executeForm(form);
+	}
+	catch(const AForm::NotSignedException& e)
+	{
+		std::cerr << "\033[33mFAIL: " << e.what() << "\033[0m" << std::endl;
+		std::cout << "-------------------------------------------" << std::endl;
+	}
+
+	try
+	{
+		std::cout << "- TRYING TO SIGN WITH NO GRADE -" << std::endl;
+		RobotomyRequestForm form("Home");
+		std::cout << form << std::endl;
+		Bureaucrat bur("Bjorn", 150);
+		bur.signForm(form);
+	}
+	catch(const Bureaucrat::GradeTooLowException& e)
+	{
+		std::cerr << "\033[33mFAIL: " << e.what() << "\033[0m" << std::endl;
+		std::cout << "-------------------------------------------" << std::endl;
+		std::cerr << "\033[32mTEST OKAY\033[0m" << std::endl;
+		std::cout << "-------------------------------------------" << std::endl;
+		return ;
+	}
+	std::cerr << "\033[31mTEST FAILED\033[0m" << std::endl;
 	std::cout << "-------------------------------------------" << std::endl;
 }
