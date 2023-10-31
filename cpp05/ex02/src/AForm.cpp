@@ -6,12 +6,11 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:53:33 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/30 19:38:48 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:19:25 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/AForm.hpp"
-#include "AForm.hpp"
 
 AForm::AForm(void) : _name("Undefined"), _minGradeToSign(1), _minGradeToExecute(1), _isSigned(false)
 {

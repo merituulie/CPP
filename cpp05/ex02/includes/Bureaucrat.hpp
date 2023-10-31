@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:26:04 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/30 16:09:44 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/31 12:22:34 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ class Bureaucrat
 		void			incrementGrade();
 		void			decrementGrade();
 		bool			signForm(AForm &form) const;
+		void			executeForm(AForm const & form) const;
 };
 
 std::ostream& operator<<(std::ostream& out, const Bureaucrat& rhs);

@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:42:15 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/30 16:16:37 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/31 12:32:58 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ bool	Bureaucrat::signForm(AForm& form) const
 	}
 	catch (AForm::GradeTooLowException& e)
 	{
-		std::cout << this->getName() << " could not sign " << form.getName() << " because the forms minimum grade to sign it is " << form.getGradeTosSign() << std::endl;
+		std::cout << this->getName() << " could not sign " << form.getName() << " because the forms minimum grade to sign it is " << form.getGradeToSign() << std::endl;
 		return false;
 	}
 
@@ -87,6 +87,19 @@ bool	Bureaucrat::signForm(AForm& form) const
 	return true;
 }
 
+void Bureaucrat::executeForm(AForm const &form) const
+{
+	try
+	{
+		form.execute(*this);
+	}
+	catch (AForm::GradeTooLowException& e)
+	{
+		std::cout << this->getName() << " could not execute " << form.getName() << " because the forms minimum grade to execute is " << form.getGradeToExecute() << std::endl;
+	}
+
+	std::cout << this->getName() << " executed " << form.getName() << std::endl;
+}
 const char *Bureaucrat::GradeTooHighException::what() const throw()
 {
 	const char *msg = "Grade too high, maximum grade is 1.";

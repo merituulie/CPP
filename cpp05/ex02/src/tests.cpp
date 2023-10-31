@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:18:20 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/30 19:57:19 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/31 12:31:59 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,22 +143,25 @@ void test_valid_grade_update_bur()
 	std::cout << "\033[32mOKAY\033[0m" << std::endl;
 }
 
-void test_valid_init_shrubbery()
+void test_valid_shrubbery()
 {
 	std::cout << "------------VALID SHRUBBERY--------------------" << std::endl;
 	try
 	{
 		ShrubberyCreationForm form("Home");
 		std::cout << form << std::endl;
-		if (form.getTarget() == "Home"
-			&& form.getIsSigned() == false
-			&& form.getName() == "ShrubberyCreationForm"
-			&& form.getGradeToSign() == 145
-			&& form.getGradeToExecute() == 137)
+		if (form.getTarget() != "Home"
+			|| form.getIsSigned() != false
+			|| form.getName() != "ShrubberyCreationForm"
+			|| form.getGradeToSign() != 145
+			|| form.getGradeToExecute() != 137)
 		{
-			std::cout << "\033[32mOKAY\033[0m" << std::endl;
+			std::cerr << "\033[33mFAIL\033[0m" << std::endl;
 			std::cout << "-------------------------------------------" << std::endl;
 		}
+		Bureaucrat bur("Bjorn", 130);
+		bur.signForm(form);
+		bur.executeForm(form);
 	}
 	catch(const AForm::GradeTooHighException& e)
 	{
@@ -170,6 +173,6 @@ void test_valid_init_shrubbery()
 		std::cerr << "\033[33mFAIL: " << e.what() << "\033[0m" << std::endl;
 		std::cout << "-------------------------------------------" << std::endl;
 	}
-		std::cerr << "\031[33mFAIL\031[0m" << std::endl;
-		std::cout << "-------------------------------------------" << std::endl;
+	std::cout << "\033[32mOKAY\033[0m" << std::endl;
+	std::cout << "-------------------------------------------" << std::endl;
 }

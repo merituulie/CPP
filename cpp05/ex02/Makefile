@@ -6,13 +6,13 @@
 #    By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/21 15:56:21 by meskelin          #+#    #+#              #
-#    Updated: 2023/10/30 19:35:22 by meskelin         ###   ########.fr        #
+#    Updated: 2023/10/31 11:18:17 by meskelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ex02
 
-BUILD_FLAGS = -Wall -Wextra -std=c++98 #-Werror
+BUILD_FLAGS = -Wall -Wextra -std=c++98 -Werror
 
 SRC =	Bureaucrat \
 		AForm \

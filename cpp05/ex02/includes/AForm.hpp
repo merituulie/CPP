@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:41:13 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/30 18:36:31 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:18:47 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class AForm
 
 		AForm(void);
 	protected:
-		void AForm::setSigned(bool isSigned);
+		void setSigned(bool isSigned);
 	public:
 		virtual ~AForm(void);
 		AForm(std::string name, unsigned int minGradeToSign, unsigned int minGradeToExecute);
