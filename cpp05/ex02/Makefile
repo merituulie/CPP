@@ -6,7 +6,7 @@
 #    By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/21 15:56:21 by meskelin          #+#    #+#              #
-#    Updated: 2023/10/31 16:58:16 by meskelin         ###   ########.fr        #
+#    Updated: 2023/10/31 17:26:26 by meskelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,13 @@ SRC =	Bureaucrat \
 		AForm \
 		ShrubberyCreationForm \
 		RobotomyRequestForm \
+		PresidentialPardonForm \
 		tests
 
 H =		Bureaucrat \
 		ShrubberyCreationForm \
 		RobotomyRequestForm \
+		PresidentialPardonForm \
 		AForm
 
 SRC_PRE = $(addprefix ./src/, $(SRC))
@@ -40,6 +42,7 @@ $(NAME): $(SRC_SUFF) $(HEADER_SUFF) main.cpp
 
 clean:
 	rm -f $(SRCSO)
+	rm -f *_shrubbery
 
 fclean: clean
 	rm -f $(NAME)

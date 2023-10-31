@@ -6,13 +6,14 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:41:13 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/31 11:18:47 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:14:12 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include <iostream>
+#include <stdexcept>
 #include "Bureaucrat.hpp"
 
 class Bureaucrat;

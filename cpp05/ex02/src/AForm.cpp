@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:53:33 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/31 16:37:27 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:30:33 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,13 @@ bool AForm::beSigned(const Bureaucrat &signer)
 
 const char* AForm::GradeTooHighException::what() const throw()
 {
-	const char *msg = "The grade is too high, maximum grade is 1.";
+	const char *msg = "The grade is too high.";
 	return msg;
 }
 
 const char* AForm::GradeTooLowException::what() const throw()
 {
-	const char *msg = "The grade is too low, minimum grade is 150.";
+	const char *msg = "The grade is too low";
 	return msg;
 }
 

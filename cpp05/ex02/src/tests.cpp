@@ -6,13 +6,14 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:18:20 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/31 17:04:58 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:26:51 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Bureaucrat.hpp"
 #include "../includes/ShrubberyCreationForm.hpp"
 #include "../includes/RobotomyRequestForm.hpp"
+#include "../includes/PresidentialPardonForm.hpp"
 #include <iostream>
 
 void test_invalid_init_bur()
@@ -233,9 +234,9 @@ void test_valid_robotomy()
 	std::cout << "------------VALID ROBOTOMY----------------" << std::endl;
 	try
 	{
-		RobotomyRequestForm form("Home");
+		RobotomyRequestForm form("Coffee machine");
 		std::cout << form << std::endl;
-		if (form.getTarget() != "Home"
+		if (form.getTarget() != "Coffee machine"
 			|| form.getIsSigned() != false
 			|| form.getName() != "RobotomyRequestForm"
 			|| form.getGradeToSign() != 72
@@ -275,7 +276,7 @@ void test_invalid_robotomy()
 	try
 	{
 		std::cout << "- TRYING TO EXECUTE BEFORE SIGNING -" << std::endl;
-		RobotomyRequestForm form("Home");
+		RobotomyRequestForm form("Coffee machine");
 		Bureaucrat bur("Bjorn", 30);
 		bur.executeForm(form);
 	}
@@ -288,7 +289,79 @@ void test_invalid_robotomy()
 	try
 	{
 		std::cout << "- TRYING TO SIGN WITH NO GRADE -" << std::endl;
-		RobotomyRequestForm form("Home");
+		RobotomyRequestForm form("Coffee machine");
+		std::cout << form << std::endl;
+		Bureaucrat bur("Bjorn", 150);
+		bur.signForm(form);
+	}
+	catch(const Bureaucrat::GradeTooLowException& e)
+	{
+		std::cerr << "\033[33mFAIL: " << e.what() << "\033[0m" << std::endl;
+		std::cout << "-------------------------------------------" << std::endl;
+		std::cerr << "\033[32mTEST OKAY\033[0m" << std::endl;
+		std::cout << "-------------------------------------------" << std::endl;
+		return ;
+	}
+	std::cerr << "\033[31mTEST FAILED\033[0m" << std::endl;
+	std::cout << "-------------------------------------------" << std::endl;
+}
+
+void test_valid_presidental()
+{
+	std::cout << "------------VALID PRESIDENTAL----------------" << std::endl;
+	try
+	{
+		PresidentialPardonForm form("Hannibal");
+		std::cout << form << std::endl;
+		if (form.getTarget() != "Hannibal"
+			|| form.getIsSigned() != false
+			|| form.getName() != "PresidentialPardonForm"
+			|| form.getGradeToSign() != 25
+			|| form.getGradeToExecute() != 5)
+		{
+			std::cerr << "\033[31mFAIL\033[0m" << std::endl;
+			std::cout << "-------------------------------------------" << std::endl;
+			return ;
+		}
+		Bureaucrat bur("Bjorn", 3);
+		bur.signForm(form);
+		std::cout << "- EXECUTE -" << std::endl;
+		bur.executeForm(form);
+	}
+	catch(const Bureaucrat::GradeTooHighException& e)
+	{
+		std::cerr << "\033[31mTEST FAILED: " << e.what() << "\033[0m" << std::endl;
+		std::cout << "-------------------------------------------" << std::endl;
+	}
+	catch(const AForm::GradeTooLowException& e)
+	{
+		std::cerr << "\033[31mFAILED: " << e.what() << "\033[0m" << std::endl;
+		std::cout << "-------------------------------------------" << std::endl;
+	}
+	std::cerr << "\033[32mTEST OKAY\033[0m" << std::endl;
+	std::cout << "-------------------------------------------" << std::endl;
+}
+
+void test_invalid_presidental()
+{
+	std::cout << "------------INVALID PRESIDENTAL--------------" << std::endl;
+	try
+	{
+		std::cout << "- TRYING TO EXECUTE BEFORE SIGNING -" << std::endl;
+		PresidentialPardonForm form("Hannibal");
+		Bureaucrat bur("Bjorn", 3);
+		bur.executeForm(form);
+	}
+	catch(const AForm::NotSignedException& e)
+	{
+		std::cerr << "\033[33mFAIL: " << e.what() << "\033[0m" << std::endl;
+		std::cout << "-------------------------------------------" << std::endl;
+	}
+
+	try
+	{
+		std::cout << "- TRYING TO SIGN WITH NO GRADE -" << std::endl;
+		PresidentialPardonForm form("Hannibal");
 		std::cout << form << std::endl;
 		Bureaucrat bur("Bjorn", 150);
 		bur.signForm(form);

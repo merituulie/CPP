@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:42:15 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/31 12:32:58 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:31:06 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,13 @@ void Bureaucrat::executeForm(AForm const &form) const
 }
 const char *Bureaucrat::GradeTooHighException::what() const throw()
 {
-	const char *msg = "Grade too high, maximum grade is 1.";
+	const char *msg = "Grade too high.";
 	return msg;
 }
 
 const char *Bureaucrat::GradeTooLowException::what() const throw()
 {
-	const char *msg = "Grade too low, minimum grade is 150.";
+	const char *msg = "Grade too low.";
 	return msg;
 }
 

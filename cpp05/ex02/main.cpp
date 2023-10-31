@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:13:28 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/31 17:01:24 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:24:33 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void test_invalid_shrubbery();
 void test_valid_shrubbery();
 void test_valid_robotomy();
 void test_invalid_robotomy();
+void test_valid_presidental();
+void test_invalid_presidental();
 
 int main(void)
 {
@@ -34,6 +36,9 @@ int main(void)
 
 	test_valid_robotomy();
 	test_invalid_robotomy();
+
+	test_valid_presidental();
+	test_invalid_presidental();
 
 	return (0);
 }
