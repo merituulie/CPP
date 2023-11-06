@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:18:20 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/31 17:26:51 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:34:04 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,19 @@
 #include "../includes/ShrubberyCreationForm.hpp"
 #include "../includes/RobotomyRequestForm.hpp"
 #include "../includes/PresidentialPardonForm.hpp"
+#include "../includes/Intern.hpp"
 #include <iostream>
+
+static bool is_valid_form(AForm *form, const std::string target, const std::string name, const int gradeToSign, const int gradeToExecute)
+{
+	if (form->getTarget() != target
+	|| form->getIsSigned() != false
+	|| form->getName() != name
+	|| form->getGradeToSign() != gradeToSign
+	|| form->getGradeToExecute() != gradeToExecute)
+		return (0);
+	return (1);
+}
 
 void test_invalid_init_bur()
 {
@@ -166,15 +178,12 @@ void test_valid_shrubbery()
 	{
 		ShrubberyCreationForm form("Home");
 		std::cout << form << std::endl;
-		if (form.getTarget() != "Home"
-			|| form.getIsSigned() != false
-			|| form.getName() != "ShrubberyCreationForm"
-			|| form.getGradeToSign() != 145
-			|| form.getGradeToExecute() != 137)
+		if (!is_valid_form(&form, "Home", "ShrubberyCreationForm", 145, 137))
 		{
 			std::cerr << "\033[31mFAIL\033[0m" << std::endl;
 			std::cout << "-------------------------------------------" << std::endl;
 		}
+
 		Bureaucrat bur("Bjorn", 130);
 		bur.signForm(form);
 		bur.executeForm(form);
@@ -236,11 +245,7 @@ void test_valid_robotomy()
 	{
 		RobotomyRequestForm form("Coffee machine");
 		std::cout << form << std::endl;
-		if (form.getTarget() != "Coffee machine"
-			|| form.getIsSigned() != false
-			|| form.getName() != "RobotomyRequestForm"
-			|| form.getGradeToSign() != 72
-			|| form.getGradeToExecute() != 45)
+		if (!is_valid_form(&form, "Coffee machine", "RobotomyRequestForm", 72, 45))
 		{
 			std::cerr << "\033[31mFAIL\033[0m" << std::endl;
 			std::cout << "-------------------------------------------" << std::endl;
@@ -313,11 +318,7 @@ void test_valid_presidental()
 	{
 		PresidentialPardonForm form("Hannibal");
 		std::cout << form << std::endl;
-		if (form.getTarget() != "Hannibal"
-			|| form.getIsSigned() != false
-			|| form.getName() != "PresidentialPardonForm"
-			|| form.getGradeToSign() != 25
-			|| form.getGradeToExecute() != 5)
+		if (!is_valid_form(&form, "Hannibal", "PresidentialPardonForm", 25, 5))
 		{
 			std::cerr << "\033[31mFAIL\033[0m" << std::endl;
 			std::cout << "-------------------------------------------" << std::endl;
@@ -371,6 +372,121 @@ void test_invalid_presidental()
 		std::cerr << "\033[33mFAIL: " << e.what() << "\033[0m" << std::endl;
 		std::cout << "-------------------------------------------" << std::endl;
 		std::cerr << "\033[32mTEST OKAY\033[0m" << std::endl;
+		std::cout << "-------------------------------------------" << std::endl;
+		return ;
+	}
+	std::cerr << "\033[31mTEST FAILED\033[0m" << std::endl;
+	std::cout << "-------------------------------------------" << std::endl;
+}
+
+void test_valid_intern()
+{
+	std::cout << "------------INVALID INTERN--------------" << std::endl;
+
+	Intern *intern = new Intern();
+
+	try
+	{
+		std::cout << "- CREATE SHRUBBERY -" << std::endl;
+		AForm *form;
+		form = intern->makeForm("shrubbery creation", "Home");
+
+		if (!is_valid_form(form, "Home", "ShrubberyCreationForm", 145, 137))
+		{
+			std::cerr << "\033[31mFAIL\033[0m" << std::endl;
+			std::cout << "-------------------------------------------" << std::endl;
+			delete intern;
+			delete form;
+			return ;
+		}
+
+		delete intern;
+		delete form;
+	}
+	catch(const AForm::DoesNotExist& e)
+	{
+		delete intern;
+
+		std::cerr << "\033[31mFAIL: " << e.what() << "\033[0m" << std::endl;
+		std::cout << "-------------------------------------------" << std::endl;
+	}
+
+	intern = new Intern();
+	try
+	{
+		std::cout << "- CREATE ROBOTOMY -" << std::endl;
+		AForm *form;
+		form = intern->makeForm("robotomy request", "coffee machine");
+
+		if (!is_valid_form(form, "coffee machine", "RobotomyRequestForm", 72, 45))
+		{
+			std::cerr << "\033[31mFAIL\033[0m" << std::endl;
+			std::cout << "-------------------------------------------" << std::endl;
+			delete intern;
+			delete form;
+			return ;
+		}
+
+		delete intern;
+		delete form;
+	}
+	catch(const AForm::DoesNotExist& e)
+	{
+		delete intern;
+
+		std::cerr << "\033[33mFAIL: " << e.what() << "\033[0m" << std::endl;
+		std::cout << "-------------------------------------------" << std::endl;
+	}
+
+	intern = new Intern();
+	try
+	{
+		std::cout << "- CREATE PRESIDENTAL -" << std::endl;
+		AForm *form;
+		form = intern->makeForm("presidental pardon", "Killerwhale");
+
+		if (!is_valid_form(form, "Killerwhale", "PresidentialPardonForm", 25, 5))
+		{
+			std::cerr << "\033[31mFAIL\033[0m" << std::endl;
+			std::cout << "-------------------------------------------" << std::endl;
+			delete intern;
+			delete form;
+			return ;
+		}
+
+		delete intern;
+		delete form;
+	}
+	catch(const AForm::DoesNotExist& e)
+	{
+		delete intern;
+
+		std::cerr << "\033[33mFAIL: " << e.what() << "\033[0m" << std::endl;
+		std::cout << "-------------------------------------------" << std::endl;
+	}
+
+	std::cerr << "\033[32mTEST OKAY\033[0m" << std::endl;
+	std::cout << "-------------------------------------------" << std::endl;
+}
+
+void test_invalid_intern()
+{
+	Intern *intern = new Intern();
+
+	try
+	{
+		std::cout << "- CREATE NON-EXISTANT -" << std::endl;
+		AForm *form;
+		form = intern->makeForm("non-existant form", "some target");
+
+		delete intern;
+		delete form;
+	}
+	catch(const AForm::DoesNotExist& e)
+	{
+		delete intern;
+
+		std::cerr << "\033[33mTEST OKAY: " << e.what() << "\033[0m" << std::endl;
 		std::cout << "-------------------------------------------" << std::endl;
 		return ;
 	}

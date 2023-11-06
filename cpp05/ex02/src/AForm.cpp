@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:53:33 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/31 17:30:33 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:55:32 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ const char* AForm::GradeTooHighException::what() const throw()
 
 const char* AForm::GradeTooLowException::what() const throw()
 {
-	const char *msg = "The grade is too low";
+	const char *msg = "The grade is too low.";
 	return msg;
 }
 

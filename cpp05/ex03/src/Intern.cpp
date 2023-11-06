@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 17:43:59 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/31 18:15:10 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:50:24 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ Intern::Intern(const Intern& rhs)
 
 Intern& Intern::operator=(const Intern& rhs)
 {
+	if (this != &rhs)
+		return (*this);
 	return (*this);
 }
 
@@ -93,8 +95,9 @@ AForm *Intern::makeForm(const std::string form_name, const std::string target)
 			ptr = (makeForm_f[i])(target);
 	}
 
-	if (ptr == 0)
+	if (!ptr)
 		throw AForm::DoesNotExist();
 	else
 		std::cout << "Intern created the form " << form_name << std::endl;
+	return (ptr);
 }

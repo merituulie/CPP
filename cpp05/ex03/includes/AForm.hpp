@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:41:13 by meskelin          #+#    #+#             */
-/*   Updated: 2023/10/31 17:40:54 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:06:36 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ class AForm
 
 		AForm& operator=(const AForm& rhs);
 
+		virtual const std::string& getTarget() = 0;
 		const std::string	&getName() const;
 		const int			&getGradeToSign() const;
 		const int			&getGradeToExecute() const;

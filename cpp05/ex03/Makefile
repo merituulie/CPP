@@ -6,11 +6,11 @@
 #    By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/21 15:56:21 by meskelin          #+#    #+#              #
-#    Updated: 2023/10/31 18:16:01 by meskelin         ###   ########.fr        #
+#    Updated: 2023/11/06 15:54:02 by meskelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ex02
+NAME = ex03
 
 BUILD_FLAGS = -Wall -Wextra -std=c++98 -Werror
 
