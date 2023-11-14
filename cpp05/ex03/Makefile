@@ -6,7 +6,7 @@
 #    By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/21 15:56:21 by meskelin          #+#    #+#              #
-#    Updated: 2023/11/06 15:54:02 by meskelin         ###   ########.fr        #
+#    Updated: 2023/11/14 16:24:54 by meskelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ HEADER_SUFF = $(addsuffix .hpp, $(HEADER_PRE))
 
 SRCO = $(addsuffix .o, $(SRC))
 
-.PHONY: all $(NAME) clean fclean re
+.PHONY: all clean fclean re
 all: $(NAME)
 
 $(NAME): $(SRC_SUFF) $(HEADER_SUFF) main.cpp

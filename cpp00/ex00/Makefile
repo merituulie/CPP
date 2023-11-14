@@ -6,7 +6,7 @@
 #    By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/26 11:12:25 by meskelin          #+#    #+#              #
-#    Updated: 2023/08/29 16:03:31 by meskelin         ###   ########.fr        #
+#    Updated: 2023/11/14 17:47:05 by meskelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC = megaphone
 SRC_SUFF = $(addsuffix .cpp, $(SRC))
 SRCSO = $(addsuffix .o, $(SRC))
 
-.PHONY = all $(NAME) clean fclean re
+.PHONY: all clean fclean re
 all: $(NAME)
 
 $(NAME): $(SRC_SUFF)
