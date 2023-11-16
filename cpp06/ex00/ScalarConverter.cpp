@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 20:45:28 by meskelin          #+#    #+#             */
-/*   Updated: 2023/11/14 21:51:43 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/11/16 21:51:10 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,25 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter& rhs)
 
 ScalarConverter::TYPE ScalarConverter::isChar(const std::string &scalar)
 {
-
+	if (scalar.length() == 1
+		&& std::isprint(static_cast<unsigned char>(scalar[0]))
+		&& !std::isdigit(scalar[0]))
+		return ScalarConverter::CHAR;
 	return ScalarConverter::NONE;
 }
 
 ScalarConverter::TYPE ScalarConverter::isInt(const std::string &scalar)
 {
-	return ScalarConverter::NONE;
+	int offset = 0;
+
+	if (scalar[offset] == '+' || scalar[offset] == '-')
+		offset++;
+	for (int i = offset; i < scalar.length(); i++)
+	{
+		if (!std::isdigit(scalar[i]))
+			return ScalarConverter::NONE;
+	}
+	return ScalarConverter::INT;
 }
 
 ScalarConverter::TYPE ScalarConverter::isFloat(const std::string &scalar)
@@ -57,7 +69,7 @@ void ScalarConverter::print(const std::string &scalar)
 
 ScalarConverter::TYPE ScalarConverter::getType(const std::string& scalar)
 {
-	static ScalarConverter::TYPE (*typeFuncs[4])(const std::string&) =
+	static bool (*typeFuncs[4])(const std::string&) =
 	{
 		isChar,
 		isInt,
