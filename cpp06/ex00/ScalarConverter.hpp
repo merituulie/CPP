@@ -6,13 +6,15 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 20:35:11 by meskelin          #+#    #+#             */
-/*   Updated: 2023/11/14 21:52:18 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/11/20 21:06:39 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include <iostream>
+#include <stdlib.h>
+#include <climits>
 
 class ScalarConverter
 {
@@ -27,20 +29,21 @@ class ScalarConverter
 		{
 			NONE,
 			CHAR,
-			INT,
-			FLOAT,
-			DOUBLE
+			PSEUDO,
+			NUMBER,
 		};
+
 
 		static ScalarConverter::TYPE	getType(const std::string& scalar);
 
 		static ScalarConverter::TYPE	isChar(const std::string& scalar);
-		static ScalarConverter::TYPE	isInt(const std::string& scalar);
-		static ScalarConverter::TYPE	isFloat(const std::string& scalar);
-		static ScalarConverter::TYPE	isDouble(const std::string& scalar);
+		static ScalarConverter::TYPE	isPseudo(const std::string& scalar);
+		static ScalarConverter::TYPE	isNumber(const std::string &scalar);
 
 		static void						print(const std::string& scalar);
 
 	public:
+		static const std::string pseudos[];
+
 		static void	convert(const std::string& scalar);
 };
