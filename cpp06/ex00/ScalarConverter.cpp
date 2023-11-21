@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 20:45:28 by meskelin          #+#    #+#             */
-/*   Updated: 2023/11/20 21:14:51 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/11/21 17:54:19 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,21 @@ ScalarConverter::TYPE ScalarConverter::isPseudo(const std::string &scalar)
 	return ScalarConverter::TYPE::NONE;
 }
 
+static bool	isFloatDouble(const char c, bool *doubleFound, bool *floatFound)
+{
+	if (c == '.' && !*doubleFound)
+	{
+		*doubleFound = true;
+		return true;
+	}
+	if (c == 'f' && !*floatFound)
+	{
+		*floatFound = true;
+		return true;
+	}
+	return false;
+}
+
 ScalarConverter::TYPE ScalarConverter::isNumber(const std::string &scalar)
 {
 	bool doubleFound = false;
@@ -87,25 +102,36 @@ ScalarConverter::TYPE ScalarConverter::isNumber(const std::string &scalar)
 		{
 			if (i == 0)
 				return ScalarConverter::NONE;
-			if ((scalar[i] == '.' && !doubleFound))
-			{
-				doubleFound = true;
+			if (isFloatDouble(scalar[i], &doubleFound, &floatFound))
 				continue;
-			}
-			if (scalar[i] == 'f' && !floatFound)
-			{
-				floatFound = true;
-				continue;
-			}
-
 			return ScalarConverter::NONE;
 		}
 	}
 	return ScalarConverter::NUMBER;
 }
 
-void ScalarConverter::print(const std::string &scalar)
+void ScalarConverter::print_char(const ScalarConverter::TYPE type, const std::string &scalar)
 {
+}
+
+void ScalarConverter::print_int(const ScalarConverter::TYPE type, const std::string &scalar)
+{
+}
+
+void ScalarConverter::print_float(const ScalarConverter::TYPE type, const std::string &scalar)
+{
+}
+
+void ScalarConverter::print_double(const ScalarConverter::TYPE type, const std::string &scalar)
+{
+}
+
+void ScalarConverter::print(const ScalarConverter::TYPE type, const std::string &scalar)
+{
+	print_char(type, scalar);
+	print_int(type, scalar);
+	print_float(type, scalar);
+	print_double(type, scalar);
 }
 
 ScalarConverter::TYPE ScalarConverter::getType(const std::string& scalar)
@@ -133,9 +159,10 @@ void ScalarConverter::convert(const std::string& scalar)
 {
 	if (scalar.empty())
 	{
-		print(scalar);
+		print(ScalarConverter::TYPE::NONE, scalar);
 		return ;
 	}
 
 	ScalarConverter::TYPE scalarType = getType(scalar);
+	print(scalarType, scalar);
 }
