@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 20:45:28 by meskelin          #+#    #+#             */
-/*   Updated: 2023/11/21 17:54:19 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/11/22 21:05:48 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,7 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter& rhs)
 ScalarConverter::TYPE ScalarConverter::isChar(const std::string &scalar)
 {
 	if (scalar.length() == 1
-		&& std::isprint(static_cast<unsigned char>(scalar[0]))
-		&& !std::isdigit(scalar[0]))
-		return ScalarConverter::CHAR;
-	return ScalarConverter::NONE;
-}
-
-ScalarConverter::TYPE ScalarConverter::isChar(const std::string &scalar)
-{
-	if (scalar.length() == 1
-		&& std::isprint(static_cast<unsigned char>(scalar[0]))
+		&& std::isprint(static_cast<char>(scalar[0]))
 		&& !std::isdigit(scalar[0]))
 		return ScalarConverter::CHAR;
 	return ScalarConverter::NONE;
@@ -110,8 +101,30 @@ ScalarConverter::TYPE ScalarConverter::isNumber(const std::string &scalar)
 	return ScalarConverter::NUMBER;
 }
 
-void ScalarConverter::print_char(const ScalarConverter::TYPE type, const std::string &scalar)
+void ScalarConverter::print_char(const ScalarConverter::TYPE type, const char c, const int i, const float f, const double d)
 {
+	std::cout << "char: ";
+	switch (type)
+	{
+		case ScalarConverter::NONE:
+		{
+			int lenght = scalar.length();
+			if (lenght == 1)
+			{
+				unsigned char converted = static_cast<unsigned char>(scalar[0]);
+				if (!std::isprint(converted))
+					std::cout << "Non displayable!" << std::endl;
+				else
+					std::cout << converted << std::endl;
+				break;
+			}
+
+			char converted = static_cast<char>(scalar);
+			std::cout << converted << std::endl;
+			break;
+		}
+
+	}
 }
 
 void ScalarConverter::print_int(const ScalarConverter::TYPE type, const std::string &scalar)
@@ -151,6 +164,21 @@ ScalarConverter::TYPE ScalarConverter::getType(const std::string& scalar)
 			break ;
 	}
 
+	char c = '\0';
+	int i = 0;
+	float f = 0.0f;
+	double d = 0.0;
+	switch (type)
+	{
+		case ScalarConverter::TYPE::CHAR:
+			c = static_cast<char>(scalar[0]);
+			break;
+		case ScalarConverter::TYPE::NUMBER:
+
+
+		default:
+			break;
+	}
 	return type;
 }
 
