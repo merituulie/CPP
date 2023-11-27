@@ -6,7 +6,7 @@
 #    By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/21 15:56:21 by meskelin          #+#    #+#              #
-#    Updated: 2023/11/20 21:08:02 by meskelin         ###   ########.fr        #
+#    Updated: 2023/11/27 20:58:36 by meskelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,9 @@ NAME = ex00
 
 BUILD_FLAGS = -Wall -Wextra -std=c++98 -Werror
 
-SRC =
+SRC = ScalarConverter
 
-H =
+H = ScalarConverter
 
 SRC_SUFF = $(addsuffix .cpp, $(SRC))
 HEADER_SUFF = $(addsuffix .hpp, $(H))

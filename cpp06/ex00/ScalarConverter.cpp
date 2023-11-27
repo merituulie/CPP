@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 20:45:28 by meskelin          #+#    #+#             */
-/*   Updated: 2023/11/22 21:05:48 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/11/27 21:13:29 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,170 +27,164 @@ ScalarConverter::ScalarConverter(const ScalarConverter& rhs)
 
 ScalarConverter &ScalarConverter::operator=(const ScalarConverter& rhs)
 {
+	if (this == &rhs)
+		return (*this);
 	return (*this);
 }
 
-ScalarConverter::TYPE ScalarConverter::isChar(const std::string &scalar)
+ScalarConverter::TYPE ScalarConverter::getType(const std::string scalar)
 {
-	if (scalar.length() == 1
-		&& std::isprint(static_cast<char>(scalar[0]))
-		&& !std::isdigit(scalar[0]))
-		return ScalarConverter::CHAR;
-	return ScalarConverter::NONE;
+	if (scalar.compare("nan") == 0 || scalar.compare("nanf") == 0)
+		return NAN;
+	else if (scalar.compare("+inf") == 0 || scalar.compare("+inff") == 0
+			|| scalar.compare("inf") == 0 || scalar.compare("inff"))
+		return INFPOS;
+	else if (scalar.compare("-inf") == 0 || scalar.compare("-inff") == 0)
+		return INFNEG;
+	else if (scalar.find('.') != std::string::npos)
+	{
+		if (scalar.find('f') != std::string::npos)
+			return FLOAT;
+		return DOUBLE;
+	}
+	else if (scalar.length() == 1 && !isdigit(scalar[0]))
+		return CHAR;
+	else
+		return INT;
 }
 
-const std::string ScalarConverter::pseudos[] =
-{
-	"inff",
-	"-inff",
-	"+inff",
-	"nanf",
-	"inf",
-	"-inf",
-	"+inf",
-	"nan"
-};
-
-ScalarConverter::TYPE ScalarConverter::isPseudo(const std::string &scalar)
-{
-	int size = ScalarConverter::pseudos->size();
-	int i = 0;
-	while (i < size)
-	{
-		if (scalar.compare(ScalarConverter::pseudos[i]))
-			return ScalarConverter::TYPE::PSEUDO;
-		i++;
-	}
-
-	return ScalarConverter::TYPE::NONE;
-}
-
-static bool	isFloatDouble(const char c, bool *doubleFound, bool *floatFound)
-{
-	if (c == '.' && !*doubleFound)
-	{
-		*doubleFound = true;
-		return true;
-	}
-	if (c == 'f' && !*floatFound)
-	{
-		*floatFound = true;
-		return true;
-	}
-	return false;
-}
-
-ScalarConverter::TYPE ScalarConverter::isNumber(const std::string &scalar)
-{
-	bool doubleFound = false;
-	bool floatFound = false;
-	int offset = 0;
-	if (scalar[0] == '+' || scalar[0] == '-')
-		offset++;
-	for (int i = offset; i < scalar.length() - 1; i++)
-	{
-		if (!std::isdigit(scalar[i]))
-		{
-			if (i == 0)
-				return ScalarConverter::NONE;
-			if (isFloatDouble(scalar[i], &doubleFound, &floatFound))
-				continue;
-			return ScalarConverter::NONE;
-		}
-	}
-	return ScalarConverter::NUMBER;
-}
-
-void ScalarConverter::print_char(const ScalarConverter::TYPE type, const char c, const int i, const float f, const double d)
+void	ScalarConverter::printConversions(ScalarConverter::TYPE type, char c, int i, float f, double d)
 {
 	std::cout << "char: ";
-	switch (type)
+	if (type == NAN || type == INFPOS || type == INFNEG)
+		std::cout << "impossible\n";
+	else if (!isprint(c))
+		std::cout << "Non displayable\n";
+	else
+		std::cout << c << std::endl;
+
+	std::cout << "int: ";
+	if (type == NAN || type == INFPOS || type == INFNEG)
+		std::cout << "impossible\n";
+	else
+		std::cout << i << std::endl;
+
+	std::cout << "float: " << std::setprecision(1) << f << std::endl;
+	std::cout << "double: " << std::setprecision(1) << d << std::endl;
+}
+
+static void	convertToNan(float *f, double *d)
+{
+	*f = std::numeric_limits<float>::quiet_NaN();
+	*d = std::numeric_limits<double>::quiet_NaN();
+}
+
+static void	convertToInfPos(float *f, double *d)
+{
+	*f = std::numeric_limits<float>::infinity();
+	*d = std::numeric_limits<double>::infinity();
+}
+
+static void	convertToInfNeg(float *f, double *d)
+{
+	*f = -std::numeric_limits<float>::infinity();
+	*d = -std::numeric_limits<double>::infinity();
+}
+
+static void	convertToFloat(const std::string& scalar, char *c, int *i, float *f, double *d)
+{
+	try
 	{
-		case ScalarConverter::NONE:
-		{
-			int lenght = scalar.length();
-			if (lenght == 1)
-			{
-				unsigned char converted = static_cast<unsigned char>(scalar[0]);
-				if (!std::isprint(converted))
-					std::cout << "Non displayable!" << std::endl;
-				else
-					std::cout << converted << std::endl;
-				break;
-			}
-
-			char converted = static_cast<char>(scalar);
-			std::cout << converted << std::endl;
-			break;
-		}
-
+		*f = std::stof(scalar);
 	}
-}
-
-void ScalarConverter::print_int(const ScalarConverter::TYPE type, const std::string &scalar)
-{
-}
-
-void ScalarConverter::print_float(const ScalarConverter::TYPE type, const std::string &scalar)
-{
-}
-
-void ScalarConverter::print_double(const ScalarConverter::TYPE type, const std::string &scalar)
-{
-}
-
-void ScalarConverter::print(const ScalarConverter::TYPE type, const std::string &scalar)
-{
-	print_char(type, scalar);
-	print_int(type, scalar);
-	print_float(type, scalar);
-	print_double(type, scalar);
-}
-
-ScalarConverter::TYPE ScalarConverter::getType(const std::string& scalar)
-{
-	static ScalarConverter::TYPE (*typeFuncs[3])(const std::string&) =
+	catch(const std::exception& e)
 	{
-		isChar,
-		isPseudo,
-		isNumber
-	};
-
-	ScalarConverter::TYPE type = ScalarConverter::NONE;
-	for (int i = 0; i < 3; i++)
-	{
-		type = typeFuncs[i](scalar);
-		if (type != ScalarConverter::NONE)
-			break ;
-	}
-
-	char c = '\0';
-	int i = 0;
-	float f = 0.0f;
-	double d = 0.0;
-	switch (type)
-	{
-		case ScalarConverter::TYPE::CHAR:
-			c = static_cast<char>(scalar[0]);
-			break;
-		case ScalarConverter::TYPE::NUMBER:
-
-
-		default:
-			break;
-	}
-	return type;
-}
-
-
-void ScalarConverter::convert(const std::string& scalar)
-{
-	if (scalar.empty())
-	{
-		print(ScalarConverter::TYPE::NONE, scalar);
+		std::cerr << "Invalid float input\n";
 		return ;
 	}
 
-	ScalarConverter::TYPE scalarType = getType(scalar);
-	print(scalarType, scalar);
+	*c = static_cast<char>(*f);
+	*i = static_cast<int>(*f);
+	*d = static_cast<double>(*f);
+}
+
+static void	convertToDouble(const std::string& scalar, char *c, int *i, float *f, double *d)
+{
+	try
+	{
+		*d = std::stod(scalar);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << "Invalid double input\n";
+		return ;
+	}
+
+	*c = static_cast<char>(*d);
+	*i = static_cast<int>(*d);
+	*f = static_cast<double>(*d);
+}
+
+static void	convertToChar(const std::string& scalar, char *c, int *i, float *f, double *d)
+{
+	*c = scalar[0];
+	*i = static_cast<int>(*c);
+	*f = static_cast<float>(*c);
+	*d = static_cast<double>(*c);
+}
+
+static void	convertToInt(const std::string& scalar, char *c, int *i, float *f, double *d)
+{
+	try
+	{
+		*i = std::stoi(scalar);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << "Invalid int input\n";
+		return ;
+	}
+
+	*c = static_cast<char>(*i);
+	*f = static_cast<float>(*i);
+	*d = static_cast<double>(*i);
+}
+
+void ScalarConverter::convert(const std::string& scalar)
+{
+	char	c = '\0';
+	int		i = 0;
+	float	f = 0.0f;
+	double	d = 0.0;
+
+	ScalarConverter::TYPE type = getType(scalar);
+	switch (type)
+	{
+		case NAN:
+			convertToNan(&f, &d);
+			break;
+		case INFPOS:
+			convertToInfPos(&f, &d);
+			break;
+		case INFNEG:
+			convertToInfNeg(&f, &d);
+			break;
+		case DOUBLE:
+			convertToDouble(scalar, &c, &i, &f, &d);
+			break;
+		case FLOAT:
+			convertToFloat(scalar, &c, &i, &f, &d);
+			break;
+		case INT:
+			convertToInt(scalar, &c, &i, &f, &d);
+			break;
+		case CHAR:
+			convertToChar(scalar, &c, &i, &f, &d);
+			break;
+		default:
+			std::cerr << "Invalid input\n";
+			return;
+	}
+
+	printConversions(type, c, i, f, d);
 }

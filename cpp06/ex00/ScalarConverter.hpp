@@ -6,15 +6,16 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 20:35:11 by meskelin          #+#    #+#             */
-/*   Updated: 2023/11/21 17:52:59 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/11/27 21:11:04 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
+#include <string>
 #include <iostream>
-#include <stdlib.h>
-#include <climits>
+#include <iomanip>
+#include <limits>
 
 class ScalarConverter
 {
@@ -27,26 +28,17 @@ class ScalarConverter
 
 		enum TYPE
 		{
-			NONE,
-			CHAR,
-			PSEUDO,
-			NUMBER,
+			NAN,
+			INFPOS,
+			INFNEG,
+			DOUBLE,
+			FLOAT,
+			INT,
+			CHAR
 		};
 
-		static const std::string pseudos[];
-
-		static ScalarConverter::TYPE	getType(const std::string& scalar);
-
-		static ScalarConverter::TYPE	isChar(const std::string& scalar);
-		static ScalarConverter::TYPE	isPseudo(const std::string& scalar);
-		static ScalarConverter::TYPE	isNumber(const std::string &scalar);
-
-		static void						print_char(const ScalarConverter::TYPE type, const std::string &scalar);
-		static void						print_int(const ScalarConverter::TYPE type, const std::string &scalar);
-		static void						print_float(const ScalarConverter::TYPE type, const std::string &scalar);
-		static void						print_double(const ScalarConverter::TYPE type, const std::string &scalar);
-
-		static void						print(const ScalarConverter::TYPE type, const std::string &scalar);
+		static ScalarConverter::TYPE getType(const std::string scalar);
+		static void	printConversions(ScalarConverter::TYPE type, char c, int i, float f, double d);
 
 	public:
 		static void	convert(const std::string& scalar);
