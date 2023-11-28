@@ -1,12 +1,14 @@
 
-NAME = ex01
+NAME = ex02
 
 BUILD_FLAGS = -Wall -Wextra -std=c++98 -Werror
 
-SRC = Serializer
+SRC =
 
-H = Data \
-	Serializer
+H = Base \
+	A \
+	B \
+	C
 
 SRC_SUFF = $(addsuffix .cpp, $(SRC))
 HEADER_SUFF = $(addsuffix .hpp, $(H))
