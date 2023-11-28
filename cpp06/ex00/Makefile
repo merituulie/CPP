@@ -6,13 +6,13 @@
 #    By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/21 15:56:21 by meskelin          #+#    #+#              #
-#    Updated: 2023/11/28 11:46:05 by meskelin         ###   ########.fr        #
+#    Updated: 2023/11/28 16:39:32 by meskelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ex00
 
-BUILD_FLAGS = -Wall -Wextra -std=c++98 #-Werror
+BUILD_FLAGS = -Wall -Wextra -std=c++98 -Werror
 
 SRC = ScalarConverter
 
