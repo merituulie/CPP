@@ -6,16 +6,18 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 20:35:11 by meskelin          #+#    #+#             */
-/*   Updated: 2023/11/27 21:11:04 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/11/28 16:31:00 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include <string>
-#include <iostream>
-#include <iomanip>
-#include <limits>
+# include <iostream>
+# include <iomanip>
+# include <limits>
+# include <cstdlib>
+# include <cfloat>
+# include <string>
 
 class ScalarConverter
 {
@@ -28,6 +30,7 @@ class ScalarConverter
 
 		enum TYPE
 		{
+			NONE,
 			NAN,
 			INFPOS,
 			INFNEG,
