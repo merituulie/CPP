@@ -4,7 +4,7 @@
 
 void test_int()
 {
-		int a = 2;
+	int a = 2;
 	int b = 3;
 
 	std::cout << "---- TEST SWAP INT ----" << std::endl;
