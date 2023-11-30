@@ -44,6 +44,5 @@ void test_nonempty()
 		std::cout << "-----------------------" << std::endl;
 		return;
 	}
-
 	std::cout << "\033[33mTEST FAIL\033[0m" << std::endl;
 }
