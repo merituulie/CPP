@@ -197,6 +197,7 @@ void test_int_values()
 
 void test_big_span()
 {
+	std::cout << "---- TEST BIG SPAN ----" << std::endl;
 	Span span = Span(20000);
 	for (int i = 0; i < span.getMaxSize(); i++)
 		span.addNumber(i);

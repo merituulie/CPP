@@ -1,12 +1,11 @@
 
-NAME = ex01
+NAME = ex02
 
-BUILD_FLAGS = -Wall -Wextra -std=c++98 -Werror
+BUILD_FLAGS = -Wall -Wextra -std=c++98 #-Werror
 
-SRC =	Span \
-		tests
+SRC = tests
 
-H = Span
+H = MutantStack
 
 SRC_SUFF = $(addsuffix .cpp, $(SRC))
 HEADER_SUFF = $(addsuffix .hpp, $(H))
