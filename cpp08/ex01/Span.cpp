@@ -37,17 +37,8 @@ Span& Span::operator=(const Span& rhs)
 {
 	if (this != &rhs)
 	{
-		//if (_max_size < rhs._max_size)
-		//	throw NotEnoughSpace();
-
 		_max_size = rhs._max_size;
 		_ints = rhs._ints;
-		//for (std::list<int>::const_iterator it = rhs._ints.begin(); it != rhs._ints.end; it++)
-		//{
-		//	if (_ints.size() == _max_size)
-		//		throw FullException();
-		//	_ints.push_back(*it);
-		//}
 	}
 
 	return *this;
@@ -76,13 +67,13 @@ unsigned int	Span::shortestSpan()
 		throw NotEnoughElementsException();
 
 	unsigned int shortest = std::numeric_limits<unsigned int>::max();
-	for (std::list<int>::const_iterator next = _ints.begin(); next != _ints.end(); ++next)
+	for (std::list<int>::const_iterator it1 = _ints.begin(); it1 != _ints.end(); ++it1)
 	{
-		for (std::list<int>::const_iterator prev = _ints.begin(); prev != _ints.end(); ++prev)
+		for (std::list<int>::const_iterator it2 = it1; it2 != _ints.end(); ++it2)
 		{
-			if (prev == next)
+			if (it1 == it2)
 				continue;
-			unsigned int temp = *prev - *next;
+			unsigned int temp = (*it1 > *it2) ? (*it1 - *it2) : (*it2 - *it1);
 			if (temp < shortest)
 				shortest = temp;
 		}
