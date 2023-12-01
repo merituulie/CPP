@@ -6,10 +6,12 @@
 #include <algorithm>
 #include <limits>
 
+#include <iostream>
+
 class Span
 {
 	private:
-		unsigned int	_max_size = 0;
+		unsigned int	_max_size;
 		std::list<int>	_ints;
 
 		Span(void);
@@ -20,7 +22,7 @@ class Span
 				char const* what() const throw();
 		};
 
-		class NotFoundException : public std::exception
+		class NotEnoughElementsException : public std::exception
 		{
 			public:
 				char const* what() const throw();
@@ -38,9 +40,12 @@ class Span
 
 		Span& operator=(const Span& rhs);
 
-		void addNumber(int number);
-		void addNumber(std::list<int>::const_iterator begin, std::list<int>::const_iterator end, int number);
+		unsigned int			getMaxSize() const;
+		const std::list<int>	getInts() const;
 
-		unsigned int	shortestSpan() const;
-		unsigned int	longestSpan() const;
+		void addNumber(int number);
+		void addNumber(std::list<int>::const_iterator begin, std::list<int>::const_iterator end);
+
+		unsigned int	shortestSpan();
+		unsigned int	longestSpan();
 };
