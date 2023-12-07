@@ -15,7 +15,7 @@ typename T::const_iterator easyfind(const T& container, int number)
 	if (typeid(*it) != typeid(int))
 		throw InvalidContainerTypeException();
 
-	typename T::const_iterator element = find(it, container.end(), number);
+	typename T::const_iterator element = std::find(it, container.end(), number);
 	if (element == container.end())
 		throw NotFoundContainerException();
 	return element;
