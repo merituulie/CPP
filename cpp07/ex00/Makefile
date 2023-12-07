@@ -4,7 +4,8 @@ NAME = ex00
 BUILD_FLAGS = -Wall -Wextra -std=c++98 -Werror
 
 SRC =	test_int \
-		test_string
+		test_string \
+		test_awesome
 
 H = whatever
 
