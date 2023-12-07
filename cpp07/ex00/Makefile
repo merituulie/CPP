@@ -7,7 +7,8 @@ SRC =	test_int \
 		test_string \
 		test_awesome
 
-H = whatever
+H = whatever \
+	Awesome
 
 SRC_SUFF = $(addsuffix .cpp, $(SRC))
 HEADER_SUFF = $(addsuffix .hpp, $(H))

@@ -5,9 +5,11 @@ BUILD_FLAGS = -Wall -Wextra -std=c++98 -Werror
 
 SRC =	test_int \
 		test_float \
-		test_string
+		test_string \
+		test_awesome
 
-H = iter
+H = iter \
+	Awesome
 
 SRC_SUFF = $(addsuffix .cpp, $(SRC))
 HEADER_SUFF = $(addsuffix .hpp, $(H))
