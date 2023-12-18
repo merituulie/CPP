@@ -83,6 +83,8 @@ void test_vector()
 	catch (const InvalidContainerTypeException& e)
 	{
 		std::cout << "\033[32mTEST OKAY: \033[33m" << e.what() << "\033[0m" << std::endl;
+		std::cout << "--------------------" << std::endl;
+		return ;
 	}
-	std::cout << "--------------------" << std::endl;
+	std::cout << "\033[31mTEST FAIL\033[0m" << std::endl;
 }
