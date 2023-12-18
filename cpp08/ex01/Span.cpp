@@ -1,11 +1,6 @@
 
 #include "Span.hpp"
 
-char const* Span::NotEnoughSpace::what() const throw()
-{
-	return "There is not enough space for the elements to be copied";
-}
-
 char const* Span::FullException::what() const throw()
 {
 	return "Span at maximum capacity ";
@@ -53,12 +48,9 @@ void Span::addNumber(int number)
 
 void Span::addNumber(std::list<int>::const_iterator begin, std::list<int>::const_iterator end)
 {
-	for (std::list<int>::const_iterator it = begin; it != end; it++)
-	{
-		if (_ints.size() == _max_size)
-			throw FullException();
-		_ints.push_back(*it);
-	}
+	if (_ints.size() + std::distance(begin, end) > _max_size)
+		throw FullException();
+	_ints.insert(_ints.end(), begin, end);
 }
 
 unsigned int	Span::shortestSpan()
@@ -73,7 +65,7 @@ unsigned int	Span::shortestSpan()
 		{
 			if (it1 == it2)
 				continue;
-			unsigned int temp = (*it1 > *it2) ? (*it1 - *it2) : (*it2 - *it1);
+			unsigned int temp = std::max(*it1, *it2) == *it1 ? (*it1 - *it2) : (*it2 - *it1);
 			if (temp < shortest)
 				shortest = temp;
 		}

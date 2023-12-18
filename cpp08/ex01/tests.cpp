@@ -51,7 +51,6 @@ void test_init()
 		if (*it == -1)
 			std::cout << "\033[31mTEST FAIL\033[0m" << std::endl;
 	}
-
 	std::cout << "\033[32mTEST OKAY\033[0m" << std::endl;
 	std::cout << "--------------------" << std::endl;
 }
@@ -61,7 +60,7 @@ void test_small()
 	std::cout << "---- TEST SMALL ----" << std::endl;
 	std::cout << "Initializing Span..." << std::endl;
 	Span sp = Span(4);
-	int longestSpan1 = 3;
+	int longestSpan1 = -30;
 	int longestSpan2 = 17;
 	int shortestSpan1 = 9;
 	int shortestSpan2 = 11;
@@ -113,6 +112,30 @@ void test_small()
 	{
 		if (sp.getInts().size() != 4)
 			std::cout << "\033[31mTEST FAIL\033[0m" << std::endl;
+		std::cout << "\033[32mTEST OKAY: \033[33m" << e.what() << "\033[0m" << std::endl;
+	}
+	std::cout << "--------------------" << std::endl;
+	std::cout << "Trying to add a new number to a full Span..." << std::endl;
+	try
+	{
+		Span sp = Span(1);
+		sp.addNumber(1);
+		sp.shortestSpan();
+	}
+	catch (const Span::NotEnoughElementsException& e)
+	{
+		std::cout << "\033[32mTEST OKAY: \033[33m" << e.what() << "\033[0m" << std::endl;
+	}
+	std::cout << "--------------------" << std::endl;
+	std::cout << "Trying to add a new number to a full Span..." << std::endl;
+	try
+	{
+		Span sp = Span(1);
+		sp.addNumber(1);
+		sp.longestSpan();
+	}
+	catch (const Span::NotEnoughElementsException& e)
+	{
 		std::cout << "\033[32mTEST OKAY: \033[33m" << e.what() << "\033[0m" << std::endl;
 		std::cout << "--------------------" << std::endl;
 		return ;
@@ -199,7 +222,7 @@ void test_big_span()
 {
 	std::cout << "---- TEST BIG SPAN ----" << std::endl;
 	Span span = Span(20000);
-	for (int i = 0; i < span.getMaxSize(); i++)
+	for (size_t i = 0; i < span.getMaxSize(); i++)
 		span.addNumber(i);
 	std::cout << "Finding shortest span with big input..." << std::endl;
 	unsigned int shortest = span.shortestSpan();
