@@ -1,7 +1,7 @@
 
-NAME = ex00
+NAME = btc
 
-BUILD_FLAGS = -Wall -Wextra -std=c++98 -Werror
+BUILD_FLAGS = -Wall -Wextra -std=c++98 #-Werror
 
 SRC =
 
