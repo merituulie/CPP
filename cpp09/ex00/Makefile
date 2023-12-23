@@ -3,9 +3,9 @@ NAME = btc
 
 BUILD_FLAGS = -Wall -Wextra -std=c++98 #-Werror
 
-SRC =
+SRC = BitcoinExchange
 
-H =
+H = BitcoinExchange
 
 SRC_SUFF = $(addsuffix .cpp, $(SRC))
 HEADER_SUFF = $(addsuffix .hpp, $(H))

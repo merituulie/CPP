@@ -13,7 +13,8 @@ int main(int argc, char **argv)
 
 	try
 	{
-		BitcoinExchange::printRates(std::string(argv[1]));
+		BitcoinExchange exchanger;
+		exchanger.printRates(argv[1]);
 	}
 	catch (const std::exception& e)
 	{

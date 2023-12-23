@@ -4,21 +4,26 @@
 #include <iostream>
 #include <fstream>
 #include <map>
+#include <cstdlib>
+
+#define DATABASE_FILE "data.csv"
 
 class BitcoinExchange
 {
 	private:
-		std::map<std::string, double> rates;
+		typedef typename std::map<std::string, double> map;
+		typedef typename std::pair<std::string, double> pair;
+		map rates;
 
 		BitcoinExchange(const BitcoinExchange& rhs);
-		~BitcoinExchange(void);
 
 		BitcoinExchange& operator=(const BitcoinExchange& rhs);
 
-		void openFile(std::string& input_file, std::ifstream& infile);
-		void parseRates(std::ifstream& infile);
+		void openFile(const char *input_file, std::ifstream& infile);
+		void parseRates();
 
 	public:
+		~BitcoinExchange(void);
 		BitcoinExchange(void);
 
 		class UnableToOpenFileException : public std::exception
@@ -30,8 +35,14 @@ class BitcoinExchange
 		class InvalidDoubleCastException : public std::exception
 		{
 			public:
+				const char *what() const throw();
+		};
+
+		class MapException : public std::exception
+		{
+			public:
 				const char* what() const throw();
 		};
 
-		void	printRates(std::string input_file);
+		void	printRates(const char *input_file);
 };
