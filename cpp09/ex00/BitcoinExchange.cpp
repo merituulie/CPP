@@ -35,41 +35,65 @@ void BitcoinExchange::openFile(const char *input_file, std::ifstream& infile)
 	}
 }
 
-static double	convertToDouble(const char *scalar)
+static float	convertToFloat(const char *scalar, float max, float min)
 {
-	char *endptr;
-	double d = std::strtod(scalar, &endptr);
+	std::ostringstream oss;
+	oss << std::setprecision(2) << std::fixed << max;
+	std::string maxFloatStr = oss.str();
+	oss.clear();
+	std::string minFloatStr;
+	oss << std::setprecision(2) << std::fixed << min;
+	minFloatStr.append("-");
+	minFloatStr.append(oss.str());
+	oss.clear();
 
-	if (*endptr != '\0')
-	{
-		std::cout << "failed to convert '" << scalar << "' into " << d << "\n";
-		throw BitcoinExchange::InvalidDoubleCastException();
-	}
+	char* endptr;
+	double temp = std::strtod(scalar, &endptr);
+	std::string scalarString(scalar);
 
-	return d;
+	if ((*endptr != '\0' && (*endptr != 'f' && *(endptr + 1) != '\0'))
+		|| (temp >= max && scalarString.compare(maxFloatStr) != 0)
+		|| (temp <= -max && scalarString.compare(minFloatStr) != 0))
+		{
+			std::cout << scalar << std::endl;
+			throw BitcoinExchange::InvalidFloatCastException();
+		}
+
+	return static_cast<float>(temp);
 }
 
-void BitcoinExchange::parseRates()
+void BitcoinExchange::parse(
+	map *mapToParse,
+	const char *filename,
+	const char *delimiter,
+	float max,
+	float min)
 {
 	std::ifstream	infile;
-	openFile(DATABASE_FILE, infile);
+	openFile(filename, infile);
 	std::string line;
 
 	getline(infile, line);
 	while (!infile.eof())
 	{
 		getline(infile, line);
+		if (infile.eof())
+			break;
 		if (line.empty() && !infile.eof())
 			continue;
 
-		int pos = line.find(',');
+		size_t pos = line.find(delimiter);
+		if (pos == std::string::npos)
+			throw BitcoinExchange::FileInvalidException();
 		std::string key = line.substr(0, pos);
-		double value = convertToDouble(line.substr(pos + 1, line.length() - pos).c_str());
+		float value = convertToFloat(line.substr(pos + std::string(delimiter).length(), line.length() - pos).c_str(), max, min);
 
 		std::pair<map::iterator,bool> result;
-		result = rates.insert(pair(key, value));
+		result = mapToParse->insert(pair(key, value));
 		if (!result.second)
 		{
+			std::cout << key << std::endl;
+			std::cout << value << std::endl;
 			infile.close();
 			throw BitcoinExchange::MapException();
 		}
@@ -80,8 +104,8 @@ void BitcoinExchange::parseRates()
 
 void BitcoinExchange::printRates(const char *input_file)
 {
-	parseRates();
-
+	parse(&rates, DATABASE_FILE, ",", limits::max(), limits::max());
+	parse(&stocks, input_file, " | ", 1000.0, 0.0);
 }
 
 const char *BitcoinExchange::UnableToOpenFileException::what() const throw()
@@ -89,12 +113,17 @@ const char *BitcoinExchange::UnableToOpenFileException::what() const throw()
 	return "Opening a file failed";
 }
 
-const char *BitcoinExchange::InvalidDoubleCastException::what() const throw()
+const char *BitcoinExchange::InvalidFloatCastException::what() const throw()
 {
-	return "Invalid double cast";
+	return "Invalid float cast";
 }
 
 const char *BitcoinExchange::MapException::what() const throw()
 {
 	return "Inserting value to a map failed";
+}
+
+const char *BitcoinExchange::FileInvalidException::what() const throw()
+{
+	return "File input could not be parsed";
 }
