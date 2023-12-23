@@ -42,14 +42,14 @@ void BitcoinExchange::openFile(const char *input_file, std::ifstream& infile)
 	}
 }
 
-static float	convertToFloat(const char *scalar, float max, float min)
+static float	convertToFloat(const char *scalar)
 {
 	std::ostringstream oss;
-	oss << std::setprecision(2) << std::fixed << max;
+	oss << std::numeric_limits<float>::max();
 	std::string maxFloatStr = oss.str();
 	oss.clear();
 	std::string minFloatStr;
-	oss << std::setprecision(2) << std::fixed << min;
+	oss << std::numeric_limits<float>::max();
 	minFloatStr.append("-");
 	minFloatStr.append(oss.str());
 	oss.clear();
@@ -59,8 +59,8 @@ static float	convertToFloat(const char *scalar, float max, float min)
 	std::string scalarString(scalar);
 
 	if ((*endptr != '\0' && (*endptr != 'f' && *(endptr + 1) != '\0'))
-		|| (temp >= max && scalarString.compare(maxFloatStr) != 0)
-		|| (temp <= -max && scalarString.compare(minFloatStr) != 0))
+		|| (temp >= std::numeric_limits<float>::max() && scalarString.compare(maxFloatStr) != 0)
+		|| (temp <= -std::numeric_limits<float>::max() && scalarString.compare(minFloatStr) != 0))
 			throw BitcoinExchange::InvalidFloatCastException();
 
 	return static_cast<float>(temp);
@@ -68,9 +68,7 @@ static float	convertToFloat(const char *scalar, float max, float min)
 
 void BitcoinExchange::parseRates(
 	const char *filename,
-	const char *delimiter,
-	float max,
-	float min)
+	const char *delimiter)
 {
 	std::ifstream	infile;
 	openFile(filename, infile);
@@ -84,7 +82,7 @@ void BitcoinExchange::parseRates(
 
 		size_t pos = line.find(delimiter);
 		std::string key = line.substr(0, pos);
-		float value = convertToFloat(line.substr(pos + std::string(delimiter).length(), line.length() - pos).c_str(), max, min);
+		float value = convertToFloat(line.substr(pos + std::string(delimiter).length(), line.length() - pos).c_str());
 
 		std::pair<map::iterator,bool> result;
 		result = rates.insert(pair(key, value));
@@ -100,9 +98,7 @@ void BitcoinExchange::parseRates(
 
 void BitcoinExchange::tryParseInput(
 	const char *filename,
-	const char *delimiter,
-	float max,
-	float min)
+	const char *delimiter)
 {
 	std::ifstream	infile;
 	openFile(filename, infile);
@@ -124,7 +120,7 @@ void BitcoinExchange::tryParseInput(
 		float value;
 		try
 		{
-			value = convertToFloat(line.substr(pos + std::string(delimiter).length(), line.length() - pos).c_str(), max, min);
+			value = convertToFloat(line.substr(pos + std::string(delimiter).length(), line.length() - pos).c_str());
 		}
 		catch(const BitcoinExchange::InvalidFloatCastException& e)
 		{
@@ -154,16 +150,10 @@ void BitcoinExchange::tryParseInput(
 void BitcoinExchange::printRates(const char *input_file)
 {
 	if (rates.empty())
-		parseRates(DATABASE_FILE, ",", limits::max(), limits::max());
-	tryParseInput(input_file, " | ", 1000.0, 0.0);
+		parseRates(DATABASE_FILE, ",");
+	tryParseInput(input_file, " | ");
 
-	for (l_map::iterator it = stocks.begin(); it != stocks.end(); it++)
-	{
-		std::cout << it->first << std::endl;
-		for (std::list<float>::iterator itl = it->second.begin(); itl != it->second.end(); itl++)
-			std::cout << *itl << "," << std::flush;
-		std::cout << std::endl;
-	}
+	// TODO: handle overflow / errors when calculating the rates
 
 	clearListMap();
 	stocks.clear();

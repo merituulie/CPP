@@ -16,8 +16,6 @@
 class BitcoinExchange
 {
 	private:
-		typedef typename std::numeric_limits<float> limits;
-
 		typedef typename std::pair<std::string, float> pair;
 		typedef typename std::map<std::string, float> map;
 		map rates;
@@ -31,8 +29,8 @@ class BitcoinExchange
 		BitcoinExchange& operator=(const BitcoinExchange& rhs);
 
 		void openFile(const char *input_file, std::ifstream& infile);
-		void parseRates(const char *filename, const char *delimiter, float max, float min);
-		void tryParseInput(const char *filename, const char *delimiter, float max, float min);
+		void parseRates(const char *filename, const char *delimiter);
+		void tryParseInput(const char *filename, const char *delimiter);
 		void clearListMap();
 
 	public:
@@ -58,6 +56,12 @@ class BitcoinExchange
 		};
 
 		class FileInvalidException : public std::exception
+		{
+			public:
+				const char* what() const throw();
+		};
+
+		class FloatOverflowException : public std::exception
 		{
 			public:
 				const char* what() const throw();
