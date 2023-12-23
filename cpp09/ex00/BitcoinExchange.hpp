@@ -5,7 +5,9 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include <string>
 #include <map>
+#include <list>
 #include <limits>
 #include <cstdlib>
 
@@ -15,17 +17,23 @@ class BitcoinExchange
 {
 	private:
 		typedef typename std::numeric_limits<float> limits;
-		typedef typename std::map<std::string, float> map;
+
 		typedef typename std::pair<std::string, float> pair;
+		typedef typename std::map<std::string, float> map;
 		map rates;
-		map stocks;
+
+		typedef typename std::pair<std::string, std::list<float> > l_pair;
+		typedef typename std::map<std::string, std::list<float> > l_map;
+		l_map stocks;
 
 		BitcoinExchange(const BitcoinExchange& rhs);
 
 		BitcoinExchange& operator=(const BitcoinExchange& rhs);
 
 		void openFile(const char *input_file, std::ifstream& infile);
-		void parse(map *mapToParse, const char *filename, const char *delimiter, float max, float min);
+		void parseRates(const char *filename, const char *delimiter, float max, float min);
+		void tryParseInput(const char *filename, const char *delimiter, float max, float min);
+		void clearListMap();
 
 	public:
 		~BitcoinExchange(void);
