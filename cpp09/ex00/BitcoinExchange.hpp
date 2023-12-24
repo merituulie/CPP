@@ -9,6 +9,7 @@
 #include <map>
 #include <list>
 #include <limits>
+#include <cfloat>
 #include <cstdlib>
 
 #define DATABASE_FILE "data.csv"
@@ -20,8 +21,20 @@ class BitcoinExchange
 		typedef typename std::map<std::string, float> map;
 		map rates;
 
-		typedef typename std::pair<std::string, std::list<float> > l_pair;
-		typedef typename std::map<std::string, std::list<float> > l_map;
+		std::string maxFloatStr;
+		std::string minFloatStr;
+
+		enum ERRORNUM
+		{
+			NONE,
+			OVERFLOW,
+			INVALIDVALUE,
+			INVALIDKEY
+		};
+
+		typedef typename std::pair<float, ERRORNUM> fe_pair;
+		typedef typename std::pair<std::string, std::list<fe_pair> > l_pair;
+		typedef typename std::map<std::string, std::list<fe_pair> > l_map;
 		l_map stocks;
 
 		BitcoinExchange(const BitcoinExchange& rhs);
@@ -31,6 +44,7 @@ class BitcoinExchange
 		void openFile(const char *input_file, std::ifstream& infile);
 		void parseRates(const char *filename, const char *delimiter);
 		void tryParseInput(const char *filename, const char *delimiter);
+		fe_pair	convertToFloat(const char *scalar, float max, float min);
 		void clearListMap();
 
 	public:

@@ -42,28 +42,35 @@ void BitcoinExchange::openFile(const char *input_file, std::ifstream& infile)
 	}
 }
 
-static float	convertToFloat(const char *scalar)
+static void convertToString(float max, float min, std::string *sMax, std::string *sMin)
 {
 	std::ostringstream oss;
-	oss << std::numeric_limits<float>::max();
-	std::string maxFloatStr = oss.str();
+	oss << max;
+	*sMax = oss.str();
 	oss.clear();
-	std::string minFloatStr;
-	oss << std::numeric_limits<float>::max();
-	minFloatStr.append("-");
-	minFloatStr.append(oss.str());
+	oss << min;
+	sMin->append("-");
+	sMin->append(oss.str());
 	oss.clear();
+}
 
+BitcoinExchange::fe_pair	BitcoinExchange::convertToFloat(const char *scalar, float max, float min)
+{
 	char* endptr;
 	double temp = std::strtod(scalar, &endptr);
 	std::string scalarString(scalar);
+	if (*endptr != '\0' && (*endptr != 'f' && *(endptr + 1) != '\0'))
+		return std::pair<float, ERRORNUM>(-1, INVALIDVALUE);
+	float value = static_cast<float>(temp);
 
-	if ((*endptr != '\0' && (*endptr != 'f' && *(endptr + 1) != '\0'))
-		|| (temp >= std::numeric_limits<float>::max() && scalarString.compare(maxFloatStr) != 0)
-		|| (temp <= -std::numeric_limits<float>::max() && scalarString.compare(minFloatStr) != 0))
-			throw BitcoinExchange::InvalidFloatCastException();
+	std::string maxString;
+	std::string minString;
+	convertToString(max, min, &maxString, &minString);
+	if ((temp >= max && scalarString.compare(maxString) != 0)
+		|| (temp <= -min && scalarString.compare(minString) != 0))
+			return std::pair<float, ERRORNUM>(value, OVERFLOW);
 
-	return static_cast<float>(temp);
+	return std::pair<float, ERRORNUM>(static_cast<float>(temp), NONE);
 }
 
 void BitcoinExchange::parseRates(
@@ -82,10 +89,16 @@ void BitcoinExchange::parseRates(
 
 		size_t pos = line.find(delimiter);
 		std::string key = line.substr(0, pos);
-		float value = convertToFloat(line.substr(pos + std::string(delimiter).length(), line.length() - pos).c_str());
+		fe_pair value = convertToFloat(
+			line.substr(pos + std::string(delimiter).length(), line.length() - pos).c_str(),
+			std::numeric_limits<float>::max(),
+			std::numeric_limits<float>::max()
+		);
 
+		if (value.second != NONE)
+			throw BitcoinExchange::FileInvalidException();
 		std::pair<map::iterator,bool> result;
-		result = rates.insert(pair(key, value));
+		result = rates.insert(pair(key, value.first));
 		if (!result.second)
 		{
 			infile.close();
@@ -117,16 +130,10 @@ void BitcoinExchange::tryParseInput(
 		if (key.empty())
 			continue;
 
-		float value;
-		try
-		{
-			value = convertToFloat(line.substr(pos + std::string(delimiter).length(), line.length() - pos).c_str());
-		}
-		catch(const BitcoinExchange::InvalidFloatCastException& e)
-		{
-			value = std::numeric_limits<float>::quiet_NaN();
-		}
-
+		fe_pair value = convertToFloat(
+			line.substr(pos + std::string(delimiter).length(), line.length() - pos).c_str(),
+			1000.0f,
+			0.0f);
 		std::pair<l_map::iterator, bool> result;
 		l_map::iterator it = stocks.find(key);
 		if (it != stocks.end())
@@ -135,7 +142,7 @@ void BitcoinExchange::tryParseInput(
 		}
 		else
 		{
-			result = stocks.insert(l_pair(key, std::list<float>(1, value)));
+			result = stocks.insert(l_pair(key, std::list<fe_pair>(1, value)));
 			if (!result.second)
 			{
 				infile.close();
@@ -154,6 +161,17 @@ void BitcoinExchange::printRates(const char *input_file)
 	tryParseInput(input_file, " | ");
 
 	// TODO: handle overflow / errors when calculating the rates
+	for (map::iterator it = rates.begin(); it != rates.end(); it++)
+		std::cout << it->first << ", " << it->second << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
+	for (l_map::iterator it = stocks.begin(); it != stocks.end(); it++)
+	{
+		std::cout << it->first << ": " << std::endl;
+		for (std::list<fe_pair>::iterator itl = it->second.begin(); itl != it->second.end(); itl++)
+			std::cout << "[" << itl->first << ", " << itl->second << "]," << std::flush;
+		std::cout << std::endl;
+	}
 
 	clearListMap();
 	stocks.clear();
