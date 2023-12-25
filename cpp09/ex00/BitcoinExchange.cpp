@@ -20,16 +20,17 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& rhs)
 	return *this;
 }
 
-void BitcoinExchange::clearListMap()
+void BitcoinExchange::clearStocks()
 {
 	for (l_map::iterator it = stocks.begin(); it != stocks.end(); it++)
 		it->second.clear();
+	stocks.clear();
 }
 
 BitcoinExchange::~BitcoinExchange(void)
 {
 	rates.clear();
-	stocks.clear();
+	clearStocks();
 }
 
 void BitcoinExchange::openFile(const char *input_file, std::ifstream& infile)
@@ -42,7 +43,7 @@ void BitcoinExchange::openFile(const char *input_file, std::ifstream& infile)
 	}
 }
 
-static void convertToString(float max, float min, std::string *sMax, std::string *sMin)
+static void convertToMinMaxString(float max, float min, std::string *sMax, std::string *sMin)
 {
 	std::ostringstream oss;
 	oss << max;
@@ -52,6 +53,13 @@ static void convertToString(float max, float min, std::string *sMax, std::string
 	sMin->append("-");
 	sMin->append(oss.str());
 	oss.clear();
+}
+
+static std::string convertToString(float value)
+{
+	std::ostringstream oss;
+	oss << value;
+	return oss.str();
 }
 
 static std::string zero = "0";
@@ -100,17 +108,17 @@ BitcoinExchange::fe_pair	BitcoinExchange::convertToFloat(const char *scalar, flo
 	double temp = std::strtod(scalar, &endptr);
 	std::string scalarString(scalar);
 	if (*endptr != '\0' && (*endptr != 'f' && *(endptr + 1) != '\0'))
-		return std::pair<float, ERRORNUM>(-1, INVALIDVALUE);
+		return fe_pair(std::pair<float, std::string>(-1, scalarString), INVALIDVALUE);
 	float value = static_cast<float>(temp);
 
 	std::string maxString;
 	std::string minString;
-	convertToString(max, min, &maxString, &minString);
+	convertToMinMaxString(max, min, &maxString, &minString);
 	if ((temp >= max && scalarString.compare(maxString) != 0)
 		|| (temp <= -min && scalarString.compare(minString) != 0))
-			return std::pair<float, ERRORNUM>(value, OVERFLOW);
+		return fe_pair(std::pair<float, std::string>(value, scalarString), OVERFLOW);
 
-	return std::pair<float, ERRORNUM>(static_cast<float>(temp), NONE);
+	return fe_pair(std::pair<float, std::string>(static_cast<float>(temp), scalarString), NONE);
 }
 
 void BitcoinExchange::parseRates(
@@ -138,7 +146,7 @@ void BitcoinExchange::parseRates(
 		if (value.second != NONE)
 			throw BitcoinExchange::FileInvalidException();
 		std::pair<map::iterator,bool> result;
-		result = rates.insert(pair(key, value.first));
+		result = rates.insert(pair(key, value.first.first));
 		if (!result.second)
 		{
 			infile.close();
@@ -170,9 +178,8 @@ void BitcoinExchange::tryParseInput(
 		if (key.empty())
 			continue;
 
-		fe_pair value = fe_pair(-1, INVALIDKEY);
-		bool valid = isDateValid(key);
-		if (valid)
+		fe_pair value = fe_pair(std::pair<float, std::string>(-1, "-1"), INVALIDKEY);
+		if (isDateValid(key))
 		{
 			value = convertToFloat(
 			line.substr(pos + std::string(delimiter).length(), line.length() - pos).c_str(),
@@ -183,43 +190,67 @@ void BitcoinExchange::tryParseInput(
 		std::pair<l_map::iterator, bool> result;
 		l_map::iterator it = stocks.find(key);
 		if (it != stocks.end())
-		{
 			it->second.push_back(value);
-		}
 		else
 		{
 			result = stocks.insert(l_pair(key, std::list<fe_pair>(1, value)));
 			if (!result.second)
-			{
-				infile.close();
 				throw BitcoinExchange::MapException();
-			}
 		}
 	}
 
 	infile.close();
 }
 
-void BitcoinExchange::printRates(const char *input_file)
+float BitcoinExchange::getDateRate(l_pair stock)
+{
+	map::const_iterator it = rates.lower_bound(stock.first);
+	if (it->first.compare(stock.first) != 0 && rates.begin()->first.compare(it->first) != 0)
+		it--;
+	return it->second;
+}
+
+void BitcoinExchange::printExchange(l_pair stock)
+{
+	std::list<fe_pair>::const_iterator it = stock.second.begin();
+	if (it->second == INVALIDKEY || it->second == INVALIDVALUE)
+	{
+		std::cout << "Error: bad input => " << stock.first << std::endl;
+		return;
+	}
+
+	float closestDateRate = getDateRate(stock);
+	for (; it != stock.second.end(); it++)
+	{
+		std::string output;
+		if (it->first.first < 0)
+			output = "Error: Not a positive number.";
+		else if (it->second == OVERFLOW)
+			output = "Error: too large a number.";
+		else
+		{
+			output = stock.first;
+			output.append(" => ");
+			output.append(it->first.second);
+			output.append(" = ");
+			output.append(convertToString(it->first.first *  closestDateRate));
+		}
+		std::cout << output << std::endl;
+	}
+}
+
+void BitcoinExchange::printExchanges(const char *input_file)
 {
 	if (rates.empty())
 		parseRates(DATABASE_FILE, ",");
 	tryParseInput(input_file, " | ");
 
-	for (map::iterator it = rates.begin(); it != rates.end(); it++)
-		std::cout << it->first << ", " << it->second << std::endl;
-	std::cout << std::endl;
-	std::cout << std::endl;
-	for (l_map::iterator it = stocks.begin(); it != stocks.end(); it++)
+	for (l_map::const_iterator it = stocks.begin(); it != stocks.end(); it++)
 	{
-		std::cout << it->first << ": " << std::endl;
-		for (std::list<fe_pair>::iterator itl = it->second.begin(); itl != it->second.end(); itl++)
-			std::cout << "[" << itl->first << ", " << itl->second << "]," << std::flush;
-		std::cout << std::endl;
+		printExchange(*it);
 	}
 
-	clearListMap();
-	stocks.clear();
+	clearStocks();
 }
 
 const char *BitcoinExchange::UnableToOpenFileException::what() const throw()

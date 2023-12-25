@@ -34,7 +34,7 @@ class BitcoinExchange
 			INVALIDKEY
 		};
 
-		typedef typename std::pair<float, ERRORNUM> fe_pair;
+		typedef typename std::pair<std::pair<float, std::string>, ERRORNUM> fe_pair;
 		typedef typename std::pair<std::string, std::list<fe_pair> > l_pair;
 		typedef typename std::map<std::string, std::list<fe_pair> > l_map;
 		l_map stocks;
@@ -43,11 +43,13 @@ class BitcoinExchange
 
 		BitcoinExchange& operator=(const BitcoinExchange& rhs);
 
+		void printExchange(l_pair stock);
+		float getDateRate(l_pair stock);
 		void openFile(const char *input_file, std::ifstream& infile);
 		void parseRates(const char *filename, const char *delimiter);
 		void tryParseInput(const char *filename, const char *delimiter);
 		fe_pair	convertToFloat(const char *scalar, float max, float min);
-		void clearListMap();
+		void clearStocks();
 
 	public:
 		~BitcoinExchange(void);
@@ -83,5 +85,5 @@ class BitcoinExchange
 				const char* what() const throw();
 		};
 
-		void	printRates(const char *input_file);
+		void	printExchanges(const char *input_file);
 };

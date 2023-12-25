@@ -14,11 +14,11 @@ int main(int argc, char **argv)
 	try
 	{
 		BitcoinExchange exchanger;
-		exchanger.printRates(argv[1]);
+		exchanger.printExchanges(argv[1]);
 	}
 	catch (const std::exception& e)
 	{
-		std::cerr << "Program exited with code 1 and message: " << e.what() << "\n";
+		std::cerr << e.what() << "\n";
 		return 1;
 	}
 
