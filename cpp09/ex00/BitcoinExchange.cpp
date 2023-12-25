@@ -54,6 +54,46 @@ static void convertToString(float max, float min, std::string *sMax, std::string
 	oss.clear();
 }
 
+static std::string zero = "0";
+
+static bool	isValidInt(const std::string scalar, int min, int max)
+{
+	std::string toCheck = scalar;
+	if (scalar.length() == 2 && zero.compare(scalar.substr(0, 1)) == 0)
+		toCheck = scalar.substr(1, scalar.length() - 1);
+
+	char *endptr;
+	long long longValue = std::strtol(toCheck.c_str(), &endptr, 10);
+	if (*endptr != '\0' || longValue > max || longValue < min)
+		return false;
+
+	return true;
+}
+
+static bool isDateValid(const std::string& date)
+{
+	time_t now = time(0);
+	tm *ltm = localtime(&now);
+	int yearNow = 1900 + ltm->tm_year;
+
+	if (date.length() != 10)
+		return false;
+	if (!isValidInt(date.substr(0, 4), 1900, yearNow))
+		return false;
+	if (!isValidInt(date.substr(5, 2), 1, 12))
+		return false;
+	if (!isValidInt(date.substr(8, 2), 1, 31))
+		return false;
+
+	std::string dash = "-";
+	if (dash.compare(date.substr(4, 1)) != 0)
+		return false;
+	if (dash.compare(date.substr(7, 1)) != 0)
+		return false;
+
+	return true;
+}
+
 BitcoinExchange::fe_pair	BitcoinExchange::convertToFloat(const char *scalar, float max, float min)
 {
 	char* endptr;
@@ -130,10 +170,16 @@ void BitcoinExchange::tryParseInput(
 		if (key.empty())
 			continue;
 
-		fe_pair value = convertToFloat(
+		fe_pair value = fe_pair(-1, INVALIDKEY);
+		bool valid = isDateValid(key);
+		if (valid)
+		{
+			value = convertToFloat(
 			line.substr(pos + std::string(delimiter).length(), line.length() - pos).c_str(),
 			1000.0f,
 			0.0f);
+		}
+
 		std::pair<l_map::iterator, bool> result;
 		l_map::iterator it = stocks.find(key);
 		if (it != stocks.end())
@@ -160,7 +206,6 @@ void BitcoinExchange::printRates(const char *input_file)
 		parseRates(DATABASE_FILE, ",");
 	tryParseInput(input_file, " | ");
 
-	// TODO: handle overflow / errors when calculating the rates
 	for (map::iterator it = rates.begin(); it != rates.end(); it++)
 		std::cout << it->first << ", " << it->second << std::endl;
 	std::cout << std::endl;

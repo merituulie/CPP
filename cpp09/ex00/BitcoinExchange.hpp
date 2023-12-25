@@ -11,6 +11,8 @@
 #include <limits>
 #include <cfloat>
 #include <cstdlib>
+#include <ctime>
+#include <algorithm>
 
 #define DATABASE_FILE "data.csv"
 
