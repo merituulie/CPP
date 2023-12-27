@@ -58,7 +58,8 @@ static bool validInput(std::string input)
 			return false;
 	}
 
-	if (digitCount < 2 || charCount < 1)
+
+	if (digitCount < 2 || charCount < 1 || charCount >= digitCount || charCount != (digitCount - 1))
 		return false;
 
 	return true;
