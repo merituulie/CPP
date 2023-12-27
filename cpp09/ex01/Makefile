@@ -1,7 +1,7 @@
 
 NAME = RPN
 
-BUILD_FLAGS = -Wall -Wextra -std=c++98 #-Werror
+BUILD_FLAGS = -Wall -Wextra -std=c++98 -Werror
 
 SRC = RPN
 
