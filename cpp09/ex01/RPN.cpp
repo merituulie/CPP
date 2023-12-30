@@ -30,15 +30,13 @@ std::pair<char, RPN::OPERATION> RPN::validOperators[4] =
 	std::make_pair('*', MULTIPLY)
 };
 
-bool RPN::validInput(std::string input)
+bool RPN::validInput(char *input)
 {
-	if (!isdigit(input[0]) || !isdigit(input[2]))
-		return false;
-
 	bool valid = false;
 	int charCount = 0;
 	int digitCount = 0;
 	int i = -1;
+
 	while (input[++i])
 	{
 		if (isspace(input[i]))
@@ -53,6 +51,14 @@ bool RPN::validInput(std::string input)
 		{
 			if (input[i] == validOperators[j].first)
 			{
+				if (input[i] == '-' && input[i + 1] && isdigit(input[i + 1]))
+				{
+					digitCount++;
+					i++;
+					valid = true;
+					break;
+				}
+
 				charCount++;
 				valid = true;
 				break;
@@ -61,7 +67,6 @@ bool RPN::validInput(std::string input)
 		if (!valid)
 			return false;
 	}
-
 
 	if (digitCount < 2 || charCount < 1 || charCount >= digitCount || charCount != (digitCount - 1))
 		return false;
@@ -91,23 +96,24 @@ void RPN::calculateOperation(long *result, int first, OPERATION op)
 			break;
 		}
 		default:
-			// THROW EXCEPTION
+			throw InvalidInputException();
 			break;
 	}
 }
 
-long RPN::calculate(const std::string& input)
+long RPN::calculate(char *input)
 {
 	long result = 0;
 	bool firstTime = true;
+	std::string s_input = std::string(input);
 
-	for (size_t i = 0; i < input.length(); i++)
+	for (size_t i = 0; i < s_input.length(); i++)
 	{
 		if (isspace(input[i]))
 			continue;
 		else if (isdigit(input[i]))
 		{
-			int value = atoi(input.substr(i, 1).c_str());
+			int value = atoi(s_input.substr(i, 1).c_str());
 			digits.push(value);
 			continue;
 		}
@@ -118,6 +124,13 @@ long RPN::calculate(const std::string& input)
 			{
 				if (input[i] == validOperators[j].first)
 				{
+					if (input[i] == '-' && input[i + 1] && isdigit(input[i + 1]))
+					{
+						int value = atoi(s_input.substr(i, 2).c_str());
+						digits.push(value);
+						i++;
+						break;
+					}
 					if (firstTime)
 					{
 						firstTime = false;
@@ -136,7 +149,7 @@ long RPN::calculate(const std::string& input)
 	return result;
 }
 
-void RPN::calculateAndPrint(const std::string& input)
+void RPN::calculateAndPrint(char *input)
 {
 	if (!validInput(input))
 		throw RPN::InvalidInputException();

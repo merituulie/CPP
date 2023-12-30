@@ -4,6 +4,7 @@
 # include <iostream>
 # include <cstdlib>
 # include <stack>
+# include <string.h>
 
 class RPN
 {
@@ -26,15 +27,16 @@ class RPN
 		RPN& operator=(const RPN& rhs);
 
 		void cleanUp();
-		bool validInput(std::string input);
-		long calculate(const std::string& input);
+		bool validInput(char *input);
+		long calculate(char *input);
 		void calculateOperation(long *result, int first, OPERATION op);
+		bool validOperation(char *input, int i);
 
 	public:
 		~RPN(void);
 		RPN(void);
 
-		void calculateAndPrint(const std::string& input);
+		void calculateAndPrint(char *input);
 
 		class InvalidInputException : public std::exception
 		{
