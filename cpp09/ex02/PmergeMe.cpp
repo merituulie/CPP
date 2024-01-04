@@ -25,12 +25,12 @@ static unsigned int to_int(char *str)
 	}
 	catch (const std::exception& e)
 	{
-		throw std::invalid_argument("Overflowing int input");
+		throw std::invalid_argument("Invalid int input");
 		exit(1);
 	}
 
 	if (value > INT_MAX || value < 0)
-		throw std::invalid_argument("Overflowing int input");
+		throw std::invalid_argument("Invalid int input");
 
 	return static_cast<unsigned int>(value);
 }
@@ -63,11 +63,21 @@ void insertionSort(std::vector<unsigned int>::iterator begin, std::vector<unsign
 	}
 }
 
-void merge(std::vector<unsigned int>::iterator begin, std::vector<unsigned int>::iterator mid, std::vector<unsigned int>::iterator end)
+std::vector<unsigned int> merge(std::vector<unsigned int>::iterator left, std::vector<unsigned int>::iterator right, std::vector<unsigned int>::iterator end)
 {
-	std::iter_swap(begin, std::min_element(begin, end));
-	std::iter_swap(mid, std::min_element(mid, end));
-	std::cout << "merge: " << *begin << " and " << *mid << " and "<< *end << std::endl;
+	std::vector<unsigned int>::iterator itl = left;
+	std::vector<unsigned int>::iterator itr = right;
+	const std::vector<unsigned int>::iterator left_end = right;
+	const std::vector<unsigned int>::iterator right_end = end;
+
+	std::vector<unsigned int> temp;
+	while (itl != left_end && itr != right_end)
+		temp.push_back(*itl <= *itr ? *itl++ : *itr++);
+
+	temp.insert(temp.end(), itl, left_end);
+	temp.insert(temp.end(), itr, right_end);
+
+	return temp;
 }
 
 void mergeSort(std::vector<unsigned int>::iterator begin, std::vector<unsigned int>::iterator end)
@@ -79,7 +89,16 @@ void mergeSort(std::vector<unsigned int>::iterator begin, std::vector<unsigned i
 	std::vector<unsigned int>::iterator mid = begin + halfway;
 	mergeSort(begin, mid);
 	mergeSort(mid, end);
-	merge(begin, mid, end);
+	std::vector<unsigned int> temp = merge(begin, mid, end);
+	static int i;
+	std::cout << i++ << ":" << std::endl;
+	std::move(temp.begin(), temp.end(), begin);
+	for (std::vector<unsigned int>::iterator it = temp.begin(); it != temp.end(); it++)
+	{
+		std::cout << *it << ", " << std::endl;
+	}
+	std::cout << std::endl;
+	std::cout << std::endl;
 }
 
 void sort(std::vector<unsigned int> *values)
