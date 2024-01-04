@@ -60,6 +60,8 @@ bool RPN::validInput(char *input)
 				}
 
 				charCount++;
+				if (charCount != (digitCount - 1))
+					break;
 				valid = true;
 				break;
 			}
@@ -122,26 +124,27 @@ long RPN::calculate(char *input)
 			int j = -1;
 			while (validOperators[++j].first)
 			{
-				if (input[i] == validOperators[j].first)
+				if (input[i] != validOperators[j].first)
+					continue;
+
+				if (input[i] == '-' && input[i + 1] && isdigit(input[i + 1]))
 				{
-					if (input[i] == '-' && input[i + 1] && isdigit(input[i + 1]))
-					{
-						int value = atoi(s_input.substr(i, 2).c_str());
-						digits.push(value);
-						i++;
-						break;
-					}
-					if (firstTime)
-					{
-						firstTime = false;
-						result = digits.top();
-						digits.pop();
-					}
-					int first = digits.top();
-					digits.pop();
-					calculateOperation(&result, first, validOperators[j].second);
+					int value = atoi(s_input.substr(i, 2).c_str());
+					digits.push(value);
+					i++;
 					break;
 				}
+
+				if (firstTime)
+				{
+					firstTime = false;
+					result = digits.top();
+					digits.pop();
+				}
+				int first = digits.top();
+				digits.pop();
+				calculateOperation(&result, first, validOperators[j].second);
+				break;
 			}
 		}
 	}
