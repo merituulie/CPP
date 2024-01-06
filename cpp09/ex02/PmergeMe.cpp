@@ -35,13 +35,14 @@ static unsigned int to_int(char *str)
 	return static_cast<unsigned int>(value);
 }
 
-void PmergeMe::initNumbers(std::vector<unsigned int> *vector, int count, char **input)
+template <class Container>
+void initNumbers(Container *values, int count, char **input)
 {
 	try
 	{
 		for (int i = 0; i < count; i++)
 		{
-			vector->push_back(to_int(input[i]));
+			values->push_back(to_int(input[i]));
 		}
 	}
 	catch(const std::exception& e)
@@ -52,25 +53,27 @@ void PmergeMe::initNumbers(std::vector<unsigned int> *vector, int count, char **
 
 }
 
-void insertionSort(std::vector<unsigned int>::iterator begin, std::vector<unsigned int>::iterator end)
+template < class Container, class ContainerIt >
+void insertionSort(ContainerIt begin, ContainerIt end)
 {
 	std::iter_swap(begin, std::min_element(begin, end));
 
-	for (std::vector<unsigned int>::iterator current = begin; ++current < end; begin = current)
+	for (ContainerIt current = begin; ++current < end; begin = current)
 	{
-		for (std::vector<unsigned int>::iterator prev = current; *prev < *begin; --prev, --begin)
+		for (ContainerIt prev = current; *prev < *begin; --prev, --begin)
 			std::iter_swap(begin, prev);
 	}
 }
 
-std::vector<unsigned int> merge(std::vector<unsigned int>::iterator left, std::vector<unsigned int>::iterator right, std::vector<unsigned int>::iterator end)
+template < class Container, class ContainerIt >
+Container merge(ContainerIt left, ContainerIt right, ContainerIt end)
 {
-	std::vector<unsigned int>::iterator itl = left;
-	std::vector<unsigned int>::iterator itr = right;
-	const std::vector<unsigned int>::iterator left_end = right;
-	const std::vector<unsigned int>::iterator right_end = end;
+	ContainerIt itl = left;
+	ContainerIt itr = right;
+	const ContainerIt left_end = right;
+	const ContainerIt right_end = end;
 
-	std::vector<unsigned int> temp;
+	Container temp;
 	while (itl != left_end && itr != right_end)
 		temp.push_back(*itl <= *itr ? *itl++ : *itr++);
 
@@ -80,52 +83,38 @@ std::vector<unsigned int> merge(std::vector<unsigned int>::iterator left, std::v
 	return temp;
 }
 
-void mergeSort(std::vector<unsigned int>::iterator begin, std::vector<unsigned int>::iterator end)
+template < class Container, class ContainerIt >
+void mergeSort(ContainerIt begin, ContainerIt end)
 {
 	if (end <= begin + 1)
 		return;
 
 	long halfway = std::distance(begin, end) - 1;
-	std::vector<unsigned int>::iterator mid = begin + halfway;
-	mergeSort(begin, mid);
-	mergeSort(mid, end);
-	std::vector<unsigned int> temp = merge(begin, mid, end);
-	static int i;
-	std::cout << i++ << ":" << std::endl;
+	ContainerIt mid = begin + halfway;
+	mergeSort<Container, ContainerIt>(begin, mid);
+	mergeSort<Container, ContainerIt>(mid, end);
+	Container temp = merge<Container, ContainerIt>(begin, mid, end);
 	std::move(temp.begin(), temp.end(), begin);
-	for (std::vector<unsigned int>::iterator it = temp.begin(); it != temp.end(); it++)
-	{
-		std::cout << *it << ", " << std::endl;
-	}
-	std::cout << std::endl;
-	std::cout << std::endl;
 }
 
-void sort(std::vector<unsigned int> *values)
+template < class Container, class ContainerIt >
+void sort(Container *values)
 {
-	//if (values->size() < 50)
-	//{
-	//	insertionSort(values->begin(), values->end());
-	//}
-	//else
-	//{
-		mergeSort(values->begin(), values->end());
-	//}
+	size_t size = values->size();
+	if (size < 2)
+		return;
+	else if (size < 50)
+		insertionSort<Container, ContainerIt>(values->begin(), values->end());
+	else
+		mergeSort<Container, ContainerIt>(values->begin(), values->end());
 }
 
 void PmergeMe::sortAndPrint(int count, char **input)
 {
 	std::vector<unsigned int> vector;
 
-	initNumbers(&vector, count, input);
-	for (std::vector<unsigned int>::iterator it = vector.begin(); it != vector.end(); it++)
-	{
-		std::cout << *it << std::endl;
-	}
-	std::cout << std::endl;
-	std::cout << std::endl;
-
-	sort(&vector);
+	initNumbers<std::vector<unsigned int> >(&vector, count, input);
+	sort<std::vector<unsigned int>, std::vector<unsigned int>::iterator>(&vector);
 	for (std::vector<unsigned int>::iterator it = vector.begin(); it != vector.end(); it++)
 	{
 		std::cout << *it << std::endl;

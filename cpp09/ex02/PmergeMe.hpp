@@ -20,6 +20,4 @@ class PmergeMe
 		PmergeMe(const PmergeMe& rhs);
 
 		PmergeMe& operator=(const PmergeMe& rhs);
-
-		void initNumbers(std::vector<unsigned int> *vector, int count, char **input);
 };
