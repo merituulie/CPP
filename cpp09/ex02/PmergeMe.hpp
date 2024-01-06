@@ -6,6 +6,9 @@
 #include <algorithm>
 #include <limits.h>
 #include <chrono>
+#include <iomanip>
+#include <vector>
+#include <deque>
 
 class PmergeMe
 {

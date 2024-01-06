@@ -1,9 +1,6 @@
 
 #include "PmergeMe.hpp"
 
-#include <vector>
-#include <deque>
-
 PmergeMe::PmergeMe()
 {
 }
@@ -117,19 +114,39 @@ void print(Container values)
 {
 	for (ContainerIt it = values.begin(); it != values.end(); it++)
 	{
-		std::cout << *it << std::endl;
+		std::cout << *it << " " << std::flush;
 	}
+	std::cout << std::endl;
 }
 
 void PmergeMe::sortAndPrint(int count, char **input)
 {
-	std::deque<unsigned int> deque;
+	{
+		std::deque<unsigned int> deque;
+		initNumbers<std::deque<unsigned int> >(&deque, count, input);
+		std::cout << "Before: " << std::flush;
+		print<std::deque<unsigned int>, std::deque<unsigned int>::iterator>(deque);
+	}
 
-	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
-	initNumbers<std::deque<unsigned int> >(&deque, count, input);
-	sort<std::deque<unsigned int>, std::deque<unsigned int>::iterator>(&deque);
-	std::chrono::high_resolution_clock::time_point stop = std::chrono::high_resolution_clock::now();
-	print<std::deque<unsigned int>, std::deque<unsigned int>::iterator>(deque);
-	std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(stop - start);
-	std::cout << "Time elapsed: " <<  time_span.count() << std::endl;
+	{
+		std::deque<unsigned int> deque;
+		std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
+		initNumbers<std::deque<unsigned int> >(&deque, count, input);
+		sort<std::deque<unsigned int>, std::deque<unsigned int>::iterator>(&deque);
+		std::chrono::high_resolution_clock::time_point stop = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(stop - start);
+		std::cout << "After: " << std::flush;
+		print<std::deque<unsigned int>, std::deque<unsigned int>::iterator>(deque);
+		std::cout << "Time to process a range of " << count << " elements with std::[deque] : " << std::fixed << std::setprecision(6) << time_span.count() << " seconds" << std::endl;
+	}
+
+	{
+		std::vector<unsigned int> vector;
+		std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
+		initNumbers<std::vector<unsigned int> >(&vector, count, input);
+		sort<std::vector<unsigned int>, std::vector<unsigned int>::iterator>(&vector);
+		std::chrono::high_resolution_clock::time_point stop = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(stop - start);
+		std::cout << "Time to process a range of " << count << " elements with std::[vector] : " << std::fixed << std::setprecision(6) << time_span.count() << " seconds" << std::endl;
+	}
 }
