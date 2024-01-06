@@ -1,6 +1,9 @@
 
 #include "PmergeMe.hpp"
 
+#include <vector>
+#include <deque>
+
 PmergeMe::PmergeMe()
 {
 }
@@ -109,14 +112,24 @@ void sort(Container *values)
 		mergeSort<Container, ContainerIt>(values->begin(), values->end());
 }
 
-void PmergeMe::sortAndPrint(int count, char **input)
+template < class Container, class ContainerIt>
+void print(Container values)
 {
-	std::vector<unsigned int> vector;
-
-	initNumbers<std::vector<unsigned int> >(&vector, count, input);
-	sort<std::vector<unsigned int>, std::vector<unsigned int>::iterator>(&vector);
-	for (std::vector<unsigned int>::iterator it = vector.begin(); it != vector.end(); it++)
+	for (ContainerIt it = values.begin(); it != values.end(); it++)
 	{
 		std::cout << *it << std::endl;
 	}
+}
+
+void PmergeMe::sortAndPrint(int count, char **input)
+{
+	std::deque<unsigned int> deque;
+
+	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
+	initNumbers<std::deque<unsigned int> >(&deque, count, input);
+	sort<std::deque<unsigned int>, std::deque<unsigned int>::iterator>(&deque);
+	std::chrono::high_resolution_clock::time_point stop = std::chrono::high_resolution_clock::now();
+	print<std::deque<unsigned int>, std::deque<unsigned int>::iterator>(deque);
+	std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(stop - start);
+	std::cout << "Time elapsed: " <<  time_span.count() << std::endl;
 }
