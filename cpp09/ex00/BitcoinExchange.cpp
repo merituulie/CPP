@@ -166,6 +166,8 @@ void BitcoinExchange::tryParseInput(
 	std::string line;
 
 	getline(infile, line);
+	if (line.compare("date | value") != 0)
+		throw BitcoinExchange::FileInvalidException();
 	while (getline(infile, line))
 	{
 		if (line.empty() && !infile.eof())

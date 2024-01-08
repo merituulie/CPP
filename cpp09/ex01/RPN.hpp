@@ -28,7 +28,7 @@ class RPN
 
 		bool validInput(char *input);
 		long calculate(char *input);
-		void calculateOperation(long *result, int first, OPERATION op);
+		long calculateOperation(int first, int second, OPERATION op);
 
 	public:
 		~RPN(void);
@@ -43,6 +43,12 @@ class RPN
 		};
 
 		class DivisionByZero : public std::exception
+		{
+			public:
+				const char *what() const throw();
+		};
+
+		class OverflowException : public std::exception
 		{
 			public:
 				const char *what() const throw();

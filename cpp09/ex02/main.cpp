@@ -3,9 +3,9 @@
 
 int main(int argc, char **argv)
 {
-	if (argc <= 2 || !argv[1] || !argv[2])
+	if (argc <= 1 || !argv[1])
 	{
-		std::cout << "Needs at least two consequent integers to sort\n";
+		std::cout << "Needs at least one integer as input\n";
 		return 0;
 	}
 

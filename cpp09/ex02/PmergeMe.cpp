@@ -18,10 +18,10 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& rhs)
 
 static unsigned int to_int(char *str)
 {
-	int value = 0;
+	long value = 0;
 	try
 	{
-		value = std::stoi(str);
+		value = std::stol(str);
 	}
 	catch (const std::exception& e)
 	{

@@ -39,6 +39,7 @@ bool RPN::validInput(char *input)
 
 	while (input[++i])
 	{
+		valid = false;
 		if (isspace(input[i]))
 			continue;
 		if (isdigit(input[i]))
@@ -60,8 +61,6 @@ bool RPN::validInput(char *input)
 				}
 
 				charCount++;
-				if (charCount != (digitCount - 1))
-					break;
 				valid = true;
 				break;
 			}
@@ -70,45 +69,51 @@ bool RPN::validInput(char *input)
 			return false;
 	}
 
-	if (digitCount < 2 || charCount < 1 || charCount >= digitCount || charCount != (digitCount - 1))
+	if (digitCount < 2 || charCount < 1 || charCount != (digitCount - 1))
 		return false;
 
 	return true;
 }
 
-void RPN::calculateOperation(long *result, int first, OPERATION op)
+long RPN::calculateOperation(int first, int second, OPERATION op)
 {
+	long result = 0;
+
 	switch (op)
 	{
 		case ADD:
-			*result += first;
+			result = first + second;
 			break;
 		case SUB:
-			*result -= first;
+			result = first - second;
 			break;
 		case MULTIPLY:
-			*result *= first;
+			result = first * second;
 			break;
 		case DIVIDE:
 		{
-			if (*result == 0)
+			if (second == 0)
 				throw DivisionByZero();
 			else
-				*result /= first;
+				result = first / second;
 			break;
 		}
 		default:
 			throw InvalidInputException();
 			break;
 	}
+
+	if (result < INT_MIN || result > INT_MAX)
+		throw OverflowException();
+
+	return result;
 }
 
 long RPN::calculate(char *input)
 {
 	long result = 0;
-	bool firstTime = true;
-	std::string s_input = std::string(input);
 
+	std::string s_input = std::string(input);
 	for (size_t i = 0; i < s_input.length(); i++)
 	{
 		if (isspace(input[i]))
@@ -135,15 +140,19 @@ long RPN::calculate(char *input)
 					break;
 				}
 
-				if (firstTime)
-				{
-					firstTime = false;
-					result = digits.top();
-					digits.pop();
-				}
+				if (digits.empty())
+					throw InvalidInputException();
+				int second = digits.top();
+				digits.pop();
+
+				if (digits.empty())
+					throw InvalidInputException();
 				int first = digits.top();
 				digits.pop();
-				calculateOperation(&result, first, validOperators[j].second);
+
+				result = calculateOperation(first, second, validOperators[j].second);
+				digits.push(result);
+
 				break;
 			}
 		}
@@ -171,4 +180,9 @@ const char *RPN::InvalidInputException::what() const throw()
 const char *RPN::DivisionByZero::what() const throw()
 {
 	return "Division by zero value";
+}
+
+const char *RPN::OverflowException::what() const throw()
+{
+	return "The result overflows an integer value";
 }
