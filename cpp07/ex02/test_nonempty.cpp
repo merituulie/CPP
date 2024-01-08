@@ -42,6 +42,18 @@ void test_nonempty()
 	{
 		std::cerr << "\033[32mTEST OKAY: " << e.what() << "\033[0m\n";
 		std::cout << "-----------------------" << std::endl;
+	}
+	std::cout << "-----------------------" << std::endl;
+	std::cout << "Testing out of bounds handling..." << std::endl;
+	try
+	{
+		Array<int> elements3(2);
+		elements3[-2] = 0;
+	}
+	catch(Array<int>::OutOfBoundsException& e)
+	{
+		std::cerr << "\033[32mTEST OKAY: " << e.what() << "\033[0m\n";
+		std::cout << "-----------------------" << std::endl;
 		return;
 	}
 	std::cout << "\033[33mTEST FAIL\033[0m" << std::endl;

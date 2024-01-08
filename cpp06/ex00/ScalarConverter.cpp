@@ -6,7 +6,7 @@
 /*   By: meskelin <meskelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 20:45:28 by meskelin          #+#    #+#             */
-/*   Updated: 2023/11/28 16:54:10 by meskelin         ###   ########.fr       */
+/*   Updated: 2023/12/04 12:15:23 by meskelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ ScalarConverter::TYPE ScalarConverter::getType(const std::string scalar)
 	}
 	if (scalar.length() == 1 && !isdigit(scalar[0]))
 		return ScalarConverter::CHAR;
-	for (int i = 0; i < scalar.length(); i++)
+	for (size_t i = 0; i < scalar.length(); i++)
 	{
 		if (!isdigit(scalar[0]))
 			return ScalarConverter::NONE;

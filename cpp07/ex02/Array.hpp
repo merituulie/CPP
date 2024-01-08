@@ -23,10 +23,9 @@ class Array
 		Array(const Array& rhs);
 
 		Array& operator=(const Array& rhs);
-		T& operator[](unsigned int index) throw(OutOfBoundsException);
+		T& operator[](unsigned int index);
 
 		unsigned int size() const;
-
 };
 
 template<typename T>
@@ -73,9 +72,9 @@ Array<T>::~Array()
 }
 
 template<typename T>
-T& Array<T>::operator[](unsigned int index) throw(OutOfBoundsException)
+T& Array<T>::operator[](unsigned int index)
 {
-	if (index >= _size)
+	if (index >= _size || index < 0)
 		throw OutOfBoundsException();
 	else
 		return _array[index];
