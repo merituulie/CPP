@@ -19,8 +19,8 @@
 class BitcoinExchange
 {
 	private:
-		typedef typename std::pair<std::string, float> pair;
-		typedef typename std::map<std::string, float> map;
+		typedef std::pair<std::string, float> pair;
+		typedef std::map<std::string, float> map;
 		map rates;
 
 		std::string maxFloatStr;
@@ -34,9 +34,9 @@ class BitcoinExchange
 			INVALIDKEY
 		};
 
-		typedef typename std::pair<std::pair<float, std::string>, ERRORNUM> fe_pair;
-		typedef typename std::pair<std::string, std::list<fe_pair> > l_pair;
-		typedef typename std::map<std::string, std::list<fe_pair> > l_map;
+		typedef std::pair<std::pair<float, std::string>, ERRORNUM> fe_pair;
+		typedef std::pair<std::string, std::list<fe_pair> > l_pair;
+		typedef std::map<std::string, std::list<fe_pair> > l_map;
 		l_map stocks;
 
 		BitcoinExchange(const BitcoinExchange& rhs);
@@ -74,12 +74,6 @@ class BitcoinExchange
 		};
 
 		class FileInvalidException : public std::exception
-		{
-			public:
-				const char* what() const throw();
-		};
-
-		class FloatOverflowException : public std::exception
 		{
 			public:
 				const char* what() const throw();

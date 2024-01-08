@@ -134,10 +134,10 @@ void PmergeMe::sortAndPrint(int count, char **input)
 		initNumbers<std::deque<unsigned int> >(&deque, count, input);
 		sort<std::deque<unsigned int>, std::deque<unsigned int>::iterator>(&deque);
 		std::chrono::high_resolution_clock::time_point stop = std::chrono::high_resolution_clock::now();
-		std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(stop - start);
+		std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double> >(stop - start);
 		std::cout << "After: " << std::flush;
 		print<std::deque<unsigned int>, std::deque<unsigned int>::iterator>(deque);
-		std::cout << "Time to process a range of " << count << " elements with std::[deque] : " << std::fixed << std::setprecision(6) << time_span.count() << " seconds" << std::endl;
+		std::cout << "Time to process a range of " << count << " elements with std::deque : " << std::fixed << std::setprecision(6) << time_span.count() << " seconds" << std::endl;
 	}
 
 	{
@@ -146,7 +146,7 @@ void PmergeMe::sortAndPrint(int count, char **input)
 		initNumbers<std::vector<unsigned int> >(&vector, count, input);
 		sort<std::vector<unsigned int>, std::vector<unsigned int>::iterator>(&vector);
 		std::chrono::high_resolution_clock::time_point stop = std::chrono::high_resolution_clock::now();
-		std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(stop - start);
-		std::cout << "Time to process a range of " << count << " elements with std::[vector] : " << std::fixed << std::setprecision(6) << time_span.count() << " seconds" << std::endl;
+		std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double> >(stop - start);
+		std::cout << "Time to process a range of " << count << " elements with std::vector : " << std::fixed << std::setprecision(6) << time_span.count() << " seconds" << std::endl;
 	}
 }

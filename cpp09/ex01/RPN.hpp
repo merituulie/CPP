@@ -26,11 +26,9 @@ class RPN
 
 		RPN& operator=(const RPN& rhs);
 
-		void cleanUp();
 		bool validInput(char *input);
 		long calculate(char *input);
 		void calculateOperation(long *result, int first, OPERATION op);
-		bool validOperation(char *input, int i);
 
 	public:
 		~RPN(void);
